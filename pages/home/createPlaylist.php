@@ -1,4 +1,4 @@
-<!-- filepath: /c:/xampp/htdocs/WEB-PROJECT/pages/home/createPlaylist.php -->
+<!-- filepath: /c:/xampp/htdocs /pages/home/createPlaylist.php -->
 <dialog id="createPlaylistDialog">
     <div class="max-width">
         <button class="close-dialog-btn" id="closeCreatePlaylistForm">

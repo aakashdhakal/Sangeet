@@ -57,10 +57,10 @@ $result = $stmt->get_result();
     </div>
     <div class="left">
         <div class="playlist-info">
-            <img src="/public/images/test.png" alt="Playlist Cover" class="playlist-cover">
+            <img src=" /public/images/test.png" alt="Playlist Cover" class="playlist-cover">
             <div class="songs-duration-creator">
                 <div class="playlist-creator">
-                    <img src="<?php echo $_SESSION["user_image"] ?>" alt="Profile Picture">
+                    <img src=" <?php echo $_SESSION["user_image"] ?>" alt="Profile Picture">
                     <p class="username"><?php echo getFullName($_SESSION['username']) ?></p>
                 </div>
                 <iconify-icon icon="radix-icons:dot-filled"></iconify-icon>

@@ -34,7 +34,7 @@ include_once "modules/extraFunctions.php";
     <div id="musicControls">
         <div class="full-screen-show">
             <div class="playing-on">
-                <img src="/public/images/logo-circle.png" alt="" srcset="">
+                <img src=" /public/images/logo-circle.png" alt="" srcset="">
                 <p>PLAYING ON SANGEET</p>
             </div>
             <div id="lyricsContainer" class="lyrics-container">
@@ -45,7 +45,7 @@ include_once "modules/extraFunctions.php";
         </div>
         <div class="controls">
             <div class="left">
-                <img src="/public\images\song-cover\sarangi.jpg" alt="album art" class="music-cover">
+                <img src=" /public\images\song-cover\sarangi.jpg" alt="album art" class="music-cover">
                 <div class="song-info">
                     <h3 class="music-title">Saarangi wadawdawd awd</h3>
                     <p class="music-artist">Sushant K.C</p>
@@ -209,7 +209,7 @@ include_once "modules/extraFunctions.php";
                     <iconify-icon icon="ph:bell-bold"></iconify-icon>
                 </button>
                 <button class="profile-btn">
-                    <img src="<?php echo $_SESSION["user_image"] ?>" alt="profile-pic">
+                    <img src=" <?php echo $_SESSION["user_image"] ?>" alt="profile-pic">
                 </button>
                 <div id="notificationWindow">
                     <div class="notification-header">

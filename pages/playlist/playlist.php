@@ -101,10 +101,10 @@ while ($row = $result->fetch_assoc()) {
     </div>
     <div class="left">
         <div class="playlist-info">
-            <img src="<?php echo $playlist['cover'] ?>" alt="Playlist Cover" class="playlist-cover">
+            <img src=" <?php echo $playlist['cover'] ?>" alt="Playlist Cover" class="playlist-cover">
             <div class="songs-duration-creator">
                 <div class="playlist-creator">
-                    <img src="<?php echo $playlist['profile_picture'] ?>" alt="Profile Picture">
+                    <img src=" <?php echo $playlist['profile_picture'] ?>" alt="Profile Picture">
                     <p class="username"><?php echo getFullName($playlist['username']) ?></p>
                 </div>
                 <iconify-icon icon="radix-icons:dot-filled"></iconify-icon>

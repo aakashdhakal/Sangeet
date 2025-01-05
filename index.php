@@ -2,21 +2,23 @@
 // Include the router file
 require_once 'router.php';
 
+
+
 // Define GET routes
 get('/', 'pages/home/mainHome.php'); // Route for the root URL
-get('/home', 'pages/home/mainHome.php'); // Route for the /home URL
+get('/home', './pages/home/mainHome.php'); // Route for the /home URL
 get('/discover', 'pages/home/mainHome.php'); // Route for the /discover URL
 get('/trending', 'pages/home/mainHome.php'); // Route for the /trending URL
 get('/favourites', 'pages/home/mainHome.php'); // Route for the /favourites URL
 get('/search', 'pages/home/mainHome.php'); // Route for the /search URL
 get('/search/$tag', 'pages/home/mainHome.php'); // Route for the /search URL
-get('/upload', path_to_include: 'pages/home/mainHome.php'); // Route for the /upload URL
+get('/upload', 'pages/home/mainHome.php'); // Route for the /upload URL
 get('/logout', 'modules/logoutUser.php'); // Route for logging out
 get('/playlist/$id', 'pages/home/mainHome.php'); // Route for the /playlist URL
 get('/history', 'pages/home/mainHome.php'); // Route for the /history URL
 
 // Define POST routes for dynamically loading pages
-post('/', 'pages/home/home.php'); // Route for the root URL
+post('/', '/pages/home/home.php'); // Route for the root URL
 post('/favourites', 'pages/favourites/favourites.php'); // Route for the /favourites URL
 post('/discover', 'pages/discover/discover.php'); // Route for the /discover URL
 post('/trending', 'pages/trending/trending.php'); // Route for the /trending URL
