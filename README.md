@@ -4,7 +4,7 @@
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset="public\images\logo-title-side-dark.png">
         <source media="(prefers-color-scheme: light)" srcset="public\images\logo-title-side.png">
-        <img src="public\images\logo-title-side-dark.png" alt="Sangeet Logo">
+        <img src="public\images\logo-title-side-dark.png" alt="Sangeet Logo" height="200">
     </picture>
 </p>
 
