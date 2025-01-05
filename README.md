@@ -1,4 +1,3 @@
-````markdown
 # Sangeet
 
 <p align="center">
@@ -8,6 +7,7 @@
         <img src="public\images\logo-title-side.png" alt="Sangeet Logo" width="200">
     </picture>
 </p>
+
 ## Introduction
 Welcome to Sangeet! This project is designed to [brief description of the project].
 
@@ -49,9 +49,3 @@ for more information.
 
 For any inquiries, please contact [your email address].
 
-```markdown
-## Dynamic Logo for Dark and Light Mode
-
-To display a dynamic logo that changes based on GitHub's theme (dark or light
-mode), you can use the following HTML snippet:
-```
