@@ -4,12 +4,14 @@
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset="public\images\logo-title-side-dark.png">
         <source media="(prefers-color-scheme: light)" srcset="public\images\logo-title-side.png">
-        <img src="public\images\logo-title-side.png" alt="Sangeet Logo" width="200">
+        <img src="public\images\logo-title-side.png" alt="Sangeet Logo" width="200" height="200">
     </picture>
 </p>
 
 ## Introduction
-Welcome to Sangeet! This project is designed to [brief description of the project].
+
+Welcome to Sangeet! This project is designed to [brief description of the
+project].
 
 ## Features
 
@@ -33,7 +35,8 @@ To start the project, run:
 ```bash
 npm start
 ```
-````
+
+```
 
 ## Contributing
 
@@ -49,3 +52,4 @@ for more information.
 
 For any inquiries, please contact [your email address].
 
+```
