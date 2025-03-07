@@ -2,6 +2,8 @@
 // Include the router file
 require_once 'router.php';
 
+//load .env file to $ENV variable
+$_ENV = parse_ini_file('.env');
 
 
 // Define GET routes
