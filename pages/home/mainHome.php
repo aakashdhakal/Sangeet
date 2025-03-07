@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 $website_title = "Sangeet- The Heartbeat of Music";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<?php
 include_once "pages/head.php";
 include_once "modules/extraFunctions.php";
 ?>
