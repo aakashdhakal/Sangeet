@@ -9,6 +9,8 @@ $username = getenv('DB_USERNAME');
 $password = getenv('DB_PASSWORD');
 $database = getenv('DB_DATABASE');
 
+$mysqli = new mysqli($servername, $username, $password, $database);
+
 // Check connection
 if ($mysqli->connect_error) {
     die("Connection failed: {$mysqli->connect_error}");
