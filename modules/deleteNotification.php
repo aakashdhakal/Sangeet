@@ -2,6 +2,8 @@
 
 include_once 'database.php';
 include_once 'extraFunctions.php';
+header('Content-Type: application/json');
+
 
 $userId = $_SESSION['user_id'];
 $notificationId = $_POST['notificationId'];

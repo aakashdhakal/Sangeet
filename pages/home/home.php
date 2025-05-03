@@ -1,6 +1,3 @@
-<?php
-$baseUrl = realpath($_SERVER["DOCUMENT_ROOT"]) . "/WEB-PROJECT";
-?>
 <section id="featuredTrending">
     <div class="featured-banner">
         <div class="banner-content">

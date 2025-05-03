@@ -19,3 +19,9 @@ document.addEventListener("click", (e) => {
 		cardContainer.scrollLeft -= cardContainer.offsetWidth;
 	}
 });
+
+document.addEventListener("submit", (e) => {
+	// Check if the clicked element or its ancestor has the ID 'searchForm'
+
+});
+

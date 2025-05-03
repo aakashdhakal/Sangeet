@@ -1,6 +1,6 @@
 <?php
-include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/WEB-PROJECT/modules/database.php";
-include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/WEB-PROJECT/modules/extraFunctions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/extraFunctions.php';
 $sql = "SELECT music_history.music_id, musics.*, MAX(music_history.id) as max_id
         FROM music_history 
         INNER JOIN musics ON music_history.music_id = musics.id 
@@ -23,7 +23,6 @@ if ($result->num_rows == 0) {
             <div class='recent-songs-container song-card-container'>
                 <div class='song-card-wrapper'>
               
-        </div>
     ";
     while ($row = $result->fetch_assoc()) {
         $cover = $row['coverImage'];
@@ -41,7 +40,7 @@ if ($result->num_rows == 0) {
                         </div>
         ";
     }
-    echo " 
+    echo " </div>
                 </div>
                 <button id='nextInContainer'><iconify-icon icon='cuida:caret-right-outline'></iconify-icon></button>
                 </div>";

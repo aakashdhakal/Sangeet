@@ -1,5 +1,7 @@
 <?php
 include_once 'database.php';
+header('Content-Type: application/json');
+
 
 $notificationId = $_POST['notificationId'];
 

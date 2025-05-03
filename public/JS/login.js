@@ -1,39 +1,35 @@
-function loginUser(loginForm) {
-	// Create a new FormData object with the login form data
-	let data = new FormData(loginForm);
-	console.log(data);
-
-	// Send a POST request to baseUrl + "/modules/loginUser.php" with the form data
-	fetch(baseUrl + "/modules/loginUser.php", {
-		method: "POST",
-		body: data,
-	})
-		.then((response) => response.text()) // Get the response as text
-		.then((data) => {
-			if (data == "success") {
-				// If the response is "success", redirect to baseUrl + "/index.php"
-				window.location.href = baseUrl;
-			} else {
-				// If the response is not "success", display an alert with the response data
-				alert(data);
-			}
-		});
-}
-
+// Event listener for click events
 document.addEventListener("click", (e) => {
-	// Check if the clicked element or its ancestor has the ID 'closeLoginForm'
+	// Show the login form modal when the login button is clicked
 	if (e.target.closest(".login-form-show-btn")) {
-		// Close the login form dialog
 		document.querySelector("#loginForm").showModal();
+	}
+
+	// Switch to the signup form modal when the signup link is clicked
+	if (e.target.closest("#signupFromLogin")) {
+		document.querySelector("#loginForm").close();
+		document.querySelector("#signupForm").showModal();
 	}
 });
 
-document.addEventListener("submit", (e) => {
-	// Check if the submitted form has the ID 'registerForm'
+// Event listener for form submissions
+document.addEventListener("submit", async (e) => {
+	// Handle login form submission
 	if (e.target.matches(".login-form")) {
-		// Prevent the default form submission
 		e.preventDefault();
-		// Call the registerUser function with the submitted form
-		loginUser(e.target);
+		let btn = e.target.querySelector("button[type='submit']");
+		setBtnStatus(btn, "loading", "Logging in");
+		let username = e.target.querySelector("#username").value;
+		let password = e.target.querySelector("#password").value;
+
+		// Validate form fields
+		if (username === "" || password === "") {
+			showError(e.target, "Please fill in all the fields");
+			setBtnStatus(btn, "normal", "Login");
+
+		} else {
+			if (await loginUser(e.target))
+				setBtnStatus(btn, "normal", "Login");
+		}
 	}
 });

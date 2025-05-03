@@ -1,6 +1,9 @@
 <?php
 // add music to history
 include_once 'database.php';
+include_once 'extraFunctions.php';
+
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['user_id'])) {
@@ -10,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param('ii', $userId, $musicId);
         $stmt->execute();
+        incrementPlays($musicId);
         if ($stmt->affected_rows > 0) {
             echo json_encode(['status' => 'success']);
         } else {

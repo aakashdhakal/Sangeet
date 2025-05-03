@@ -6,7 +6,6 @@ session_start();
 if (session_status() == PHP_SESSION_ACTIVE) {
     session_destroy();
 }
-
 // Redirect to the home page
-header("Location: /WEB-PROJECT");
+header("Location: /");
 exit();
