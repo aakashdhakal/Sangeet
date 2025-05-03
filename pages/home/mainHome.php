@@ -10,9 +10,9 @@ include_once "pages/head.php";
 </head>
 
 <body>
-    <!-- <?php
+    <?php
     include_once "pages/preloader.php";
-    ?> -->
+    ?>
     <nav id="sideNav">
         <ul>
             <li class="active">
@@ -181,11 +181,16 @@ include_once "pages/head.php";
                                 <!-- one digit per input -->
                                 <input type="text" inputmode="numeric" pattern="[0-9]+" name="otp[]" id="otp1" maxlength="1"
                                     required>
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp2" maxlength="1" required>
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp3" maxlength="1" required>
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp4" maxlength="1" required>
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp5" maxlength="1" required>
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp6" maxlength="1" required>
+                                <input type="text" inputmode="numeric" name="otp[]" id="otp2" maxlength="1" required
+                                    autocomplete="off">
+                                <input type="text" inputmode="numeric" name="otp[]" id="otp3" maxlength="1" required
+                                    autocomplete="off">
+                                <input type="text" inputmode="numeric" name="otp[]" id="otp4" maxlength="1" required
+                                    autocomplete="off">
+                                <input type="text" inputmode="numeric" name="otp[]" id="otp5" maxlength="1" required
+                                    autocomplete="off">
+                                <input type="text" inputmode="numeric" name="otp[]" id="otp6" maxlength="1" required
+                                    autocomplete="off">
                             </div>
                             <p class="resend-otp"></p>
                             <button type="submit" class="primary-btn">Verify</button>

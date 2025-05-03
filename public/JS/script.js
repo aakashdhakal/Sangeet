@@ -1,6 +1,13 @@
 let baseUrl = "/WEB-PROJECT";
 let title = document.title;
 
+//preloader
+
+let preloader = document.querySelector(".preloader");
+window.addEventListener("load", () => {
+	preloader.style.display = "none";
+});
+
 // Close dialog function
 function closeDialog(dialog) {
 	let form = dialog.querySelector("form");
@@ -483,14 +490,16 @@ async function sendOtp(email, username) {
 	}
 }
 
-async function checkOtp(otp) {
+async function checkOtp(otp, username) {
 	try {
 		const response = await fetch(baseUrl + "/modules/otpConfig.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
 			},
-			body: `otp=${encodeURIComponent(otp)}&action=verifyOtp`,
+			body: `otp=${encodeURIComponent(
+				otp,
+			)}&action=verifyOtp&username=${encodeURIComponent(username)}`,
 		});
 		const data = await response.json();
 		if (data.status === 200) {

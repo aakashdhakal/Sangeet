@@ -10,16 +10,24 @@ document.addEventListener("click", (e) => {
 	}
 });
 
-document.addEventListener("submit", (e) => {
-	console.log(e.target);
+let username;
+document.addEventListener("submit", async (e) => {
 	if (e.target.closest(".signup-form")) {
 		e.preventDefault();
-		console.log("Form submitted");
 		// Get the form data
 		let formData = new FormData(e.target);
 		let email = formData.get("email");
-		let username = formData.get("username");
+		username = formData.get("username");
 		sendOtp(email, username);
+	}
+	if (e.target.closest(".otp-verify")) {
+		e.preventDefault();
+		let otp = combineOtp();
+		if (await checkOtp(otp, username)) {
+			alert("OTP verified successfully");
+		} else {
+			alert("Invalid OTP");
+		}
 	}
 });
 
