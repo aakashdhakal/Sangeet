@@ -9,6 +9,8 @@ require_once 'router.php';
 
 //load .env file to $ENV variable
 $_ENV = parse_ini_file('.env');
+echo getenv('DB_SERVER');
+// Connect to the database using environment variables
 
 
 // Define GET routes
