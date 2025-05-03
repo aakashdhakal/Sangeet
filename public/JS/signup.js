@@ -2,17 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	const signupFormElement = document.querySelector("#signupForm");
 	const loginFormElement = document.querySelector("#loginForm");
 
-<<<<<<< HEAD
-let username;
-document.addEventListener("submit", async (e) => {
-	if (e.target.closest(".signup-form")) {
-		e.preventDefault();
-		// Get the form data
-		let formData = new FormData(e.target);
-		let email = formData.get("email");
-		username = formData.get("username");
-		sendOtp(email, username);
-=======
 	const otpInputs = document.querySelectorAll(".otp-group input");
 	const otpPattern = /^[0-9]{1}$/;
 	let email;
@@ -208,7 +197,6 @@ document.addEventListener("submit", async (e) => {
 
 	function formatDate(dob) {
 		dob.split("/").reverse().map(part => part.padStart(2, '0')).join("-");
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 	}
 	if (e.target.closest(".otp-verify")) {
 		e.preventDefault();

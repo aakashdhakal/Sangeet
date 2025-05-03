@@ -9,102 +9,10 @@
     flex-direction: column;
     transition: var(--transition-normal);
     background-color: var(--bg-color);
-<<<<<<< HEAD
     border-right: 1px solid var(--bg-tertiary);
     overflow-y: auto;
     overflow-x: hidden;
     box-shadow: var(--shadow-sm);
-=======
-
-    hr {
-        width: 0;
-        transition: all 0.3s ease;
-    }
-
-    .not-logged-in {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    ul {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-
-        li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-
-            &:hover {
-                .nav-btn {
-                    color: var(--primary-color) !important;
-                }
-            }
-
-            .nav-btn {
-                color: var(--text-color-light);
-                text-decoration: none;
-                width: 100% !important;
-                padding: 0.5rem 0.8rem;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                gap: 1.1rem;
-                font-size: 0.95rem;
-                transition: all 0.3s ease;
-                overflow: hidden;
-                text-overflow: clip;
-                white-space: nowrap;
-
-                iconify-icon {
-                    font-size: 1.3rem;
-                }
-            }
-        }
-
-        .active {
-            background-color: var(--button-bg-color);
-
-            .nav-btn {
-                color: white !important;
-            }
-
-            &:hover {
-                .nav-btn {
-                    color: white !important;
-                }
-            }
-        }
-    }
-
-    .nav-heading-container {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-
-        hr {
-            width: 0;
-        }
-
-    }
-
-    .nav-heading {
-        font-size: 1rem;
-        font-weight: bold;
-        color: var(--text-color-light);
-        transition: all 0.3s ease;
-        text-overflow: clip;
-    }
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 }
 
 #sideNav hr {
@@ -991,7 +899,6 @@ main {
 #recentTopArtist .recently-added-songs,
 #recentTopArtist .recently-modified-songs {
     width: 100%;
-<<<<<<< HEAD
 }
 
 #recentTopArtist .top-album {
@@ -1023,14 +930,6 @@ main {
     aspect-ratio: 1/1;
     object-fit: cover;
 }
-=======
-    /* .recently-played-songs {
-        grid-row: 1;
-        grid-column: 1;
-        width: 100%;
-        height: min-content;
-    } */
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 
 #recentTopArtist .top-album .playlist-image::after {
     content: "";
@@ -1087,12 +986,7 @@ main {
     #featuredTrending .featured-banner,
     #featuredTrending .trending-songs {
         width: 100%;
-<<<<<<< HEAD
     }
-=======
-        height: 100%;
-        position: relative;
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 
     #featuredTrending .featured-banner {
         height: 300px;

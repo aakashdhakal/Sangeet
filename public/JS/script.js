@@ -4,7 +4,6 @@ const unlikedIcon = "<iconify-icon icon='fe:heart-o'></iconify-icon>";
 const likedIcon =
 	"<iconify-icon icon='fe:heart'  style='color: #ff6a3a'></iconify-icon>";
 
-<<<<<<< HEAD
 //preloader
 
 let preloader = document.querySelector(".preloader");
@@ -13,113 +12,6 @@ window.addEventListener("load", () => {
 });
 
 // Close dialog function
-=======
-// Function to load pages dynamically
-async function loadPageDynamic(url, dynamicNames) {
-	setPagePreloader(true);
-	setPageTitle(url, dynamicNames)
-	//get path after domain name
-	let path = url.split("/").pop();
-	history.pushState({ path }, null, url); // Update URL without reloading
-	await loadPage(url); // Load the page content
-	let btn = document.querySelector(`[data-path="${url}"]`);
-	if (btn) {
-		if (btn.classList.contains("nav-btn")) {
-			changeActiveBtn(btn);
-		} else {
-			changeActiveBtn(null);
-		}
-		appendScript(btn.dataset.script);
-	} else {
-		changeActiveBtn(null);
-	}
-}
-
-// Show preloader
-function setPagePreloader(display) {
-	let main = document.querySelector("main");
-	if (display) {
-		main.innerHTML = `<iconify-icon icon="svg-spinners:6-dots-rotate" width="60" height="60" style="color: #ff7f11; position:absolute; left: 50%;top:50%;"></iconify-icon>`;
-	}
-}
-
-//get title of the page
-async function setPageTitle(url, dynamicName) {
-
-	//check if music is being played
-	if (navigator.mediaSession.playbackState != "playing") {
-		let path = url.split("/")
-		let title = "Sangeet - The Heartbeat of Music";
-		if (path.includes("search")) {
-			title = "Sangeet - Search";
-		} else if (path.includes("discover")) {
-			title = "Discover Music of Your Choice";
-		} else if (path.includes("favourites")) {
-			title = "Your Favourites";
-		} else if (path.includes("history")) {
-			title = "Your Listening History";
-		} else if (path.includes("playlist")) {
-			let playlistTitle = await getPlaylistInfo(path.pop());
-			title = playlistTitle.name + " - by " + userFullName;
-		} else if (path.includes("trending")) {
-			title = "Trending Music";
-		} else if (path.includes("upload")) {
-			title = "Upload Music";
-		} else if (dynamicName) {
-			title = dynamicName;
-		}
-		document.title = title;
-	}
-}
-
-// Preloader and initial page load
-window.addEventListener("load", async () => {
-	let url = window.location.pathname;
-	let searchValue = url.split("/").filter(Boolean);
-	if (searchValue.includes("search") && searchValue.length === 3) {
-		loadPageDynamic("/");
-	} else if (searchValue.includes("search")) {
-		document.title = "Sangeet - Search";
-		let searchTerm = searchValue.pop();
-		if (searchTerm !== "search") {
-			document.querySelector("#search").value = decodeURIComponent(
-				searchTerm.replace(/\+/g, " ")
-			);
-		}
-	}
-	await loadPageDynamic(url);
-	setTimeout(() => (document.querySelector(".preloader").style.display = "none"), 1000);
-});
-
-// Handle popstate event to load pages when navigating with back/forward buttons
-window.addEventListener("popstate", async (event) => {
-	eve
-	if (event.state && event.state.path) {
-		await loadPageDynamic(window.location.href, document.title);
-	}
-});
-
-// Show error message
-function showError(form, message) {
-	let errorContainer = form.parentElement.previousElementSibling;
-	errorContainer.style.display = "flex";
-	errorContainer.querySelector(".error-text").innerText = message;
-}
-
-// Hide error messages
-function hideError() {
-	document.querySelectorAll(".error-container").forEach((container) => (container.style.display = "none"));
-}
-
-// Set button status
-function setBtnStatus(btn, status, text) {
-	btn.innerHTML = status === "loading" ? `<iconify-icon icon="eos-icons:bubble-loading"></iconify-icon>&nbsp;&nbsp;${text}` : text;
-	btn.disabled = status === "loading";
-	btn.style.opacity = status === "loading" ? 0.7 : 1;
-}
-
-// Close dialog
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 function closeDialog(dialog) {
 	let form = dialog.querySelector("form");
 	if (form) form.reset();
@@ -893,11 +785,7 @@ async function sendOtp(email, purpose = "register") {
 	}
 }
 
-<<<<<<< HEAD
 async function checkOtp(otp, username) {
-=======
-async function checkOtp(otp, email) {
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 	try {
 		const response = await fetch("/otpConfig", {
 			method: "POST",
@@ -906,11 +794,7 @@ async function checkOtp(otp, email) {
 			},
 			body: `otp=${encodeURIComponent(
 				otp,
-<<<<<<< HEAD
 			)}&action=verifyOtp&username=${encodeURIComponent(username)}`,
-=======
-			)}&action=verifyOtp&email=${encodeURIComponent(email)}`,
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 		});
 		const data = await response.json();
 		if (data.status === 200) {

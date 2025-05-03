@@ -184,7 +184,6 @@ include_once "modules/extraFunctions.php";
                     <button class="login-form-show-btn secondary-btn" id="loginFormShowBtn">Login</button>
                     <button class="signup-form-show-btn primary-btn" id="signupFormShowBtn">Sign Up</button>
                 </div>
-<<<<<<< HEAD
                 <dialog id="loginForm">
                     <div class="max-width">
                         <button class="close-dialog-btn" id="closeLoginForm">
@@ -262,8 +261,6 @@ include_once "modules/extraFunctions.php";
                     </div>
                 </dialog>
 
-=======
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
                 <?php
             }
             ?>
