@@ -4,10 +4,10 @@
 // Connect to the database
 //use environment variables to store the database credentials
 
-$servername = $_ENV['DB_SERVER'];
-$username = $_ENV['DB_USERNAME'];
-$password = $_ENV['DB_PASSWORD'];
-$database = $_ENV['DB_NAME'];
+$servername = getenv('DB_SERVER', );
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD');
+$database = getenv('DB_DATABASE');
 
 // Check connection
 if ($mysqli->connect_error) {
