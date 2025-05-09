@@ -21,6 +21,6 @@ WORKDIR /var/www/html/
 EXPOSE 80
 
 # Launch cloudflared tunnel in background and Apache in foreground
-CMD cloudflared access tcp --hostname tcp://mysql.aakashdhakal.com.np --url localhost:3306 & apache2-foreground
+CMD ["sh", "-c", "cloudflared access tcp --hostname mysql.aakashdhakal.com.np --url localhost:3306 & apache2-foreground"]
 
 
