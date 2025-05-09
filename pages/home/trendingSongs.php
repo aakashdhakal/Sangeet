@@ -1,6 +1,7 @@
 <?php
 include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/database.php";
 include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/extraFunctions.php";
+echo realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/database.php";
 $sql = 'SELECT *, COUNT(*) as plays 
         FROM music_history
         INNER JOIN musics ON music_history.music_id = musics.id
