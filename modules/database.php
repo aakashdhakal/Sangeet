@@ -10,7 +10,7 @@ $password = getenv('DB_PASSWORD');
 $database = getenv('DB_DATABASE');
 $port = getenv('DB_PORT');
 
-$mysqli = new mysqli("192.168.1.66", "aakashdhakal", "A@kash123", "mydb", "3306");
+$mysqli = new mysqli($servername, $username, $password, $database, $port);
 
 // Check connection
 if ($mysqli->connect_error) {
