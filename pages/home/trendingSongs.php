@@ -1,12 +1,12 @@
 <?php
 include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/database.php";
 include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/extraFunctions.php";
-$sql = 'SELECT *, COUNT(*) as plays 
+$sql = 'SELECT musics.id, musics.coverImage, musics.title, musics.artist, COUNT(music_history.music_id) as plays 
         FROM music_history
         INNER JOIN musics ON music_history.music_id = musics.id
         INNER JOIN users ON musics.artist = users.username
-        GROUP BY music_id 
-        ORDER BY COUNT(*) DESC 
+        GROUP BY musics.id, musics.coverImage, musics.title, musics.artist 
+        ORDER BY plays DESC 
         LIMIT 5;';
 $result = mysqli_query($mysqli, $sql);
 
