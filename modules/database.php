@@ -11,7 +11,7 @@ $database = getenv('DB_DATABASE');
 $port = getenv('DB_PORT');
 
 $mysqli = new mysqli($servername, $username, $password, $database, $port);
-
+echo $servername . " $username $password $database $port and fuck you";
 // Check connection
 if ($mysqli->connect_error) {
     die("Connection failed: {$mysqli->connect_error}");
