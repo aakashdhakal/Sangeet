@@ -512,7 +512,7 @@ main {
 	background: linear-gradient(0deg,
 			rgba(0, 0, 0, 0.804359243697479) 0%,
 			rgba(0, 0, 0, 0.2) 100%),
-		url("/WEB-PROJECT/public/images/bg.png") no-repeat center center/cover;
+		url("/public/images/bg.png") no-repeat center center/cover;
 	color: rgb(255, 255, 255);
 	padding: 0 1rem;
 	border-radius: 1rem;

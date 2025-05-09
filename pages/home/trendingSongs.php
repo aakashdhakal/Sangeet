@@ -1,13 +1,21 @@
 <?php
-include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/WEB-PROJECT/modules/database.php";
-include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/WEB-PROJECT/modules/extraFunctions.php";
-$sql = 'SELECT *, COUNT(*) as plays 
-        FROM music_history
-        INNER JOIN musics ON music_history.music_id = musics.id
-        INNER JOIN users ON musics.artist = users.username
-        GROUP BY music_id 
-        ORDER BY COUNT(*) DESC 
-        LIMIT 5;';
+include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/database.php";
+include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/extraFunctions.php";
+$sql = 'SELECT 
+    music_history.music_id,
+    ANY_VALUE(musics.id) AS id,
+    ANY_VALUE(musics.coverImage) AS coverImage,
+    ANY_VALUE(musics.title) AS title,
+    ANY_VALUE(users.username) AS artist,
+    COUNT(*) AS plays
+FROM music_history
+INNER JOIN musics ON music_history.music_id = musics.id
+INNER JOIN users ON musics.artist = users.username
+GROUP BY music_history.music_id
+ORDER BY plays DESC
+LIMIT 5;
+';
+
 $result = mysqli_query($mysqli, $sql);
 
 if ($result instanceof mysqli_result) {
@@ -25,7 +33,7 @@ if ($result instanceof mysqli_result) {
              <div class='song-list-wrapper'>
              <p class='song-number'>#" . $i++ . "</p>
             <div class='song-list'>
-    <img src='/WEB-PROJECT/$cover' alt=' srcset='>
+    <img src='/$cover' alt=' srcset='>
     <button class='start-play-music' data-musicId='$musicId'><iconify-icon icon='gravity-ui:play-fill'></iconify-icon></button>
     <div class='song-info'>
         <p class='music-title'>$title</p>
