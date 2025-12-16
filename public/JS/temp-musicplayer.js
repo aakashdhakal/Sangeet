@@ -17,7 +17,6 @@ const playIcon =
 const pauseIcon =
 	"<iconify-icon icon='solar:pause-bold' style='color:#ff7f11'></iconify-icon>";
 
-
 let isPlaying = false;
 let music = new Audio();
 let musicId = null;
@@ -67,15 +66,19 @@ function syncLyric(lyrics, time) {
 
 function displayLyric(lyrics, time) {
 	const lyricContainer = document.querySelector(".lyrics-container");
+	if (!lyricContainer) return; // Exit if container doesn't exist
+
 	const lyricIndex = syncLyric(lyrics, time);
-	if (lyricIndex !== null) {
+	if (lyricIndex !== null && lyricIndex !== -1) {
 		//get the current lyric and the next lyric and previous lyric
 		currentLyric = lyrics[lyricIndex];
 		nextLyric = lyrics[lyricIndex + 1];
 		previousLyric = lyrics[lyricIndex - 1];
 
 		lyricContainer.innerHTML = `
-            <p class="lyric previous">${previousLyric ? previousLyric.text : ""}</p>
+            <p class="lyric previous">${
+							previousLyric ? previousLyric.text : ""
+						}</p>
             <p class="lyric current">${currentLyric.text}</p>
             <p class="lyric next">${nextLyric ? nextLyric.text : ""}</p>
         `;
@@ -83,8 +86,6 @@ function displayLyric(lyrics, time) {
 		lyricContainer.innerHTML = "";
 	}
 }
-
-
 
 // Check if the given music ID is already loaded
 function isMusicLoaded(id) {
@@ -107,18 +108,21 @@ async function loadMusic(id) {
 	await addToHistory(musicData.id);
 	addToPrevMusic(musicData.id);
 	if (await setLikeStatus(musicData.id)) {
-		likeBtn.dataset.liked = 1
-		setBtnStatus(likeBtn, "normal", likedIcon);
+		if (likeBtn) {
+			likeBtn.dataset.liked = 1;
+			setBtnStatus(likeBtn, "normal", likedIcon);
+		}
 	} else {
-		likeBtn.dataset.liked = 0
-		setBtnStatus(likeBtn, "normal", unlikedIcon);
+		if (likeBtn) {
+			likeBtn.dataset.liked = 0;
+			setBtnStatus(likeBtn, "normal", unlikedIcon);
+		}
 	}
 
 	// Fetch and display lyrics
 	currentLyric = nextLyric = previousLyric = [];
 	const lrc = await fetch(musicData.lyricsPath).then((res) => res.text());
 	lyrics = parseLyric(lrc);
-
 }
 
 // Format the duration of the music in minutes and seconds
@@ -137,11 +141,20 @@ function updateMusicControls(musicData) {
 	const musicCover = document.querySelector(".music-cover");
 	const totalDuration = document.querySelector(".total-duration");
 
+	if (
+		!musicTitle ||
+		!musicArtist ||
+		!musicCover ||
+		!totalDuration ||
+		!musicControls
+	)
+		return;
+
 	musicTitle.innerHTML = musicData.title;
 	musicArtist.innerHTML = `${musicData.firstname} ${musicData.lastname}`;
 	musicCover.src = musicData.coverImage;
 	totalDuration.innerHTML = formatDuration(music.duration);
-	likeBtn.dataset.musicid = musicData.id;
+	if (likeBtn) likeBtn.dataset.musicid = musicData.id;
 
 	if (!loaded) {
 		musicControls.animate([{ bottom: "-10%" }, { bottom: "0" }], {
@@ -154,21 +167,34 @@ function updateMusicControls(musicData) {
 
 // Function to play the music
 async function playMusic() {
-	setPageTitle("", musicName + " - " + artistName);
-	navigator.mediaSession.playbackState = "playing";
-	music.play();
-	displayLyric(lyrics, music.currentTime);
-	isPlaying = true;
-	playPauseBtn.innerHTML = pauseIcon;
+	// setPageTitle("", musicName + " - " + artistName);
+	// Commented out undefined function
+	if (navigator.mediaSession) {
+		navigator.mediaSession.playbackState = "playing";
+	}
+
+	try {
+		await music.play();
+		isPlaying = true;
+		if (playPauseBtn) playPauseBtn.innerHTML = pauseIcon;
+		displayLyric(lyrics, music.currentTime);
+	} catch (err) {
+		console.error("Error playing music:", err);
+		isPlaying = false;
+		playPauseBtn.innerHTML = playIcon;
+	}
 }
 
 // Function to pause the music
 function pauseMusic() {
-	navigator.mediaSession.playbackState = "paused";
-	setPageTitle(window.location.href,);
+	if (navigator.mediaSession) {
+		navigator.mediaSession.playbackState = "paused";
+	}
+	// setPageTitle(window.location.href,);
+	// Commented out undefined function
 	music.pause();
 	isPlaying = false;
-	playPauseBtn.innerHTML = playIcon;
+	if (playPauseBtn) playPauseBtn.innerHTML = playIcon;
 }
 
 // Function to add current music to the nextMusicQueue list
@@ -185,34 +211,42 @@ function addToPrevMusic(currentMusicId) {
 	}
 }
 
-prevMusicBtn.addEventListener("click", async () => {
-	if (playedMusicQueue.length > 1) {
-		// Add current music to nextMusicQueue list
-		addToNextMusic(playedMusicQueue.pop());
-		// Remove the last played music and load the previous one
+if (prevMusicBtn) {
+	prevMusicBtn.addEventListener("click", async () => {
+		if (playedMusicQueue.length > 1) {
+			// Add current music to nextMusicQueue list
+			addToNextMusic(playedMusicQueue.pop());
+			// Remove the last played music and load the previous one
 
-		await loadMusic(playedMusicQueue.pop());
-		playMusic();
-	}
-});
+			await loadMusic(playedMusicQueue.pop());
+			playMusic();
+		}
+	});
+}
 
-nextMusicBtn.addEventListener("click", async () => {
-	if (nextMusicQueue.length) {
-		// Add current music to playedMusicQueue list
-		// Load the next music from the nextMusicQueue list
-		await loadMusic(nextMusicQueue.shift());
-		playMusic();
-	}
-});
+if (nextMusicBtn) {
+	nextMusicBtn.addEventListener("click", async () => {
+		if (nextMusicQueue.length) {
+			// Add current music to playedMusicQueue list
+			// Load the next music from the nextMusicQueue list
+			await loadMusic(nextMusicQueue.shift());
+			playMusic();
+		}
+	});
+}
 
 // Event listener for updating seekbar, current duration, and lyrics
 music.addEventListener("timeupdate", () => {
 	if (music.duration) {
 		const currentDuration = document.querySelector(".current-duration");
 		const position = (music.currentTime / music.duration) * 100;
-		seekbar.value = position;
-		seekbar.style.setProperty("--seek-before-width", `${position}%`);
-		currentDuration.innerText = formatDuration(music.currentTime);
+		if (seekbar) {
+			seekbar.value = position;
+			seekbar.style.setProperty("--seek-before-width", `${position}%`);
+		}
+		if (currentDuration) {
+			currentDuration.innerText = formatDuration(music.currentTime);
+		}
 
 		// Update lyrics display
 		displayLyric(lyrics, music.currentTime);
@@ -221,26 +255,28 @@ music.addEventListener("timeupdate", () => {
 
 // Event listener for music end
 music.addEventListener("ended", () => {
-	if (repeatBtn.getAttribute("data-repeat") === "true") {
+	if (repeatBtn && repeatBtn.getAttribute("data-repeat") === "true") {
 		playMusic();
 	} else {
 		setTimeout(() => {
-			nextMusicBtn.click();
+			if (nextMusicBtn) nextMusicBtn.click();
 		}, 2000);
 	}
 });
 
 // Event listeners for seekbar
-seekbar.addEventListener("mouseout", () =>
-	seekbar.style.setProperty("--thumb-display", "none"),
-);
-seekbar.addEventListener("mousemove", () =>
-	seekbar.style.setProperty("--thumb-display", "block"),
-);
-seekbar.addEventListener(
-	"input",
-	() => (music.currentTime = music.duration * (seekbar.value / 100)),
-);
+if (seekbar) {
+	seekbar.addEventListener("mouseout", () =>
+		seekbar.style.setProperty("--thumb-display", "none"),
+	);
+	seekbar.addEventListener("mousemove", () =>
+		seekbar.style.setProperty("--thumb-display", "block"),
+	);
+	seekbar.addEventListener(
+		"input",
+		() => (music.currentTime = music.duration * (seekbar.value / 100)),
+	);
+}
 
 // Function to toggle button state
 function toggleButton(button, attribute, otherButton, otherAttribute) {
@@ -254,25 +290,31 @@ function toggleButton(button, attribute, otherButton, otherAttribute) {
 }
 
 // Event listeners for shuffle and repeat buttons
-shuffleBtn.addEventListener("click", function () {
-	toggleButton(shuffleBtn, "data-shuffle", repeatBtn, "data-repeat");
+if (shuffleBtn) {
+	shuffleBtn.addEventListener("click", function () {
+		toggleButton(shuffleBtn, "data-shuffle", repeatBtn, "data-repeat");
 
-	for (let i = nextMusicQueue.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[nextMusicQueue[i], nextMusicQueue[j]] = [
-			nextMusicQueue[j],
-			nextMusicQueue[i],
-		];
-	}
-});
-repeatBtn.addEventListener("click", () =>
-	toggleButton(repeatBtn, "data-repeat", shuffleBtn, "data-shuffle"),
-);
+		for (let i = nextMusicQueue.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[nextMusicQueue[i], nextMusicQueue[j]] = [
+				nextMusicQueue[j],
+				nextMusicQueue[i],
+			];
+		}
+	});
+}
+if (repeatBtn) {
+	repeatBtn.addEventListener("click", () =>
+		toggleButton(repeatBtn, "data-repeat", shuffleBtn, "data-shuffle"),
+	);
+}
 
 // Event listener for play/pause button
-playPauseBtn.addEventListener("click", () =>
-	isPlaying ? pauseMusic() : playMusic(),
-);
+if (playPauseBtn) {
+	playPauseBtn.addEventListener("click", () =>
+		isPlaying ? pauseMusic() : playMusic(),
+	);
+}
 
 // Function to mute the music
 function mute() {
@@ -301,33 +343,39 @@ function adjustVolume(volumeValue) {
 }
 
 // Event listener for volume button
-volumeBtn.addEventListener("click", () => {
-	if (volume.value <= 0) {
-		adjustVolume(localStorage.getItem("volume"));
-	} else {
-		mute();
-	}
-});
+if (volumeBtn) {
+	volumeBtn.addEventListener("click", () => {
+		if (volume && volume.value <= 0) {
+			adjustVolume(localStorage.getItem("volume"));
+		} else {
+			mute();
+		}
+	});
+}
 
 // Event listener for volume input
-volume.addEventListener("input", () => {
-	if (volume.value <= 0) {
-		mute();
-		localStorage.setItem("volume", 20);
-	} else {
-		localStorage.setItem("volume", volume.value);
-		adjustVolume(volume.value);
-	}
-	volume.title = `${Math.floor(volume.value)}%`;
-});
+if (volume) {
+	volume.addEventListener("input", () => {
+		if (volume.value <= 0) {
+			mute();
+			localStorage.setItem("volume", 20);
+		} else {
+			localStorage.setItem("volume", volume.value);
+			adjustVolume(volume.value);
+		}
+		volume.title = `${Math.floor(volume.value)}%`;
+	});
+}
 
 // Event listeners for volume input mouse events
-volume.addEventListener("mouseout", () =>
-	volume.style.setProperty("--thumb-display", "none"),
-);
-volume.addEventListener("mousemove", () =>
-	volume.style.setProperty("--thumb-display", "block"),
-);
+if (volume) {
+	volume.addEventListener("mouseout", () =>
+		volume.style.setProperty("--thumb-display", "none"),
+	);
+	volume.addEventListener("mousemove", () =>
+		volume.style.setProperty("--thumb-display", "block"),
+	);
+}
 
 // Event listener for keydown events
 document.addEventListener("keydown", (e) => {
@@ -370,8 +418,6 @@ async function displayPlaylists() {
 	});
 }
 
-
-
 // Event listener for document clicks
 document.addEventListener("click", async (e) => {
 	const startPlayBtn = e.target.closest(".start-play-music");
@@ -384,9 +430,9 @@ document.addEventListener("click", async (e) => {
 			await loadMusic(musicId);
 			let playlistId = startPlayBtn.dataset.playlistid;
 			if (playlistId) {
-				nextMusicQueue = (await fetchMusicQueue(musicId, "playlist", playlistId)).map(
-					(music) => music.music_id,
-				);
+				nextMusicQueue = (
+					await fetchMusicQueue(musicId, "playlist", playlistId)
+				).map((music) => music.music_id);
 			} else {
 				nextMusicQueue = (await fetchMusicQueue(musicId)).map(
 					(music) => music.id,
@@ -427,17 +473,28 @@ document.addEventListener("click", (e) => {
 	if (e.target.closest(".add-to-playlist-btn")) {
 		//show playlists just below the btn
 		let addToPlaylistDialog = document.querySelector("#addToPlaylistModal");
-		let playListBtns = document.querySelectorAll("#addToPlaylistModal .playlist-btn");
+		let playListBtns = document.querySelectorAll(
+			"#addToPlaylistModal .playlist-btn",
+		);
 		playListBtns.forEach((btn) => {
-			btn.dataset.musicid = e.target.closest(".add-to-playlist-btn").dataset.musicid;
-		})
-		addToPlaylistDialog.show()
-		addToPlaylistDialog.style.top = `${getElementPosition(e.target).top + 30}px`;
-		addToPlaylistDialog.style.left = `${getElementPosition(e.target).left - 170}px`;
-	} else if (document.querySelector("#addToPlaylistModal").open) {
+			btn.dataset.musicid = e.target.closest(
+				".add-to-playlist-btn",
+			).dataset.musicid;
+		});
+		addToPlaylistDialog.show();
+		addToPlaylistDialog.style.top = `${
+			getElementPosition(e.target).top + 30
+		}px`;
+		addToPlaylistDialog.style.left = `${
+			getElementPosition(e.target).left - 170
+		}px`;
+	} else if (
+		document.querySelector("#addToPlaylistModal") &&
+		document.querySelector("#addToPlaylistModal").open
+	) {
 		closeDialog(document.querySelector("#addToPlaylistModal"));
 	}
-})
+});
 
 function getElementPosition(element) {
 	const rect = element.getBoundingClientRect();
@@ -445,6 +502,6 @@ function getElementPosition(element) {
 		top: rect.top + window.scrollY,
 		left: rect.left + window.scrollX,
 		right: rect.right + window.scrollX,
-		bottom: rect.bottom + window.scrollY
+		bottom: rect.bottom + window.scrollY,
 	};
 }

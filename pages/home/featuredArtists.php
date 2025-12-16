@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/extraFunctions.php';
+require_once APP_PATH . '/modules/database.php';
+require_once APP_PATH . '/modules/extraFunctions.php';
 $sql = "SELECT * from users where is_artist = 1 ORDER BY id DESC LIMIT 13";
 $stmt = $mysqli->prepare($sql);
 $stmt->execute();
@@ -14,7 +14,7 @@ while ($row = $result->fetch_assoc()) {
 
     echo "
                         <div class='song-card artist-card' title='$artist'>
-                            <img src='$cover' alt='' srcset=''>
+                            <img src='" . get_url($cover) . "' alt='' srcset=''>
                             <div class='song-info'>
                                 <p class='music-title'>$artist</p>
                             </div>

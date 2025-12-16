@@ -4,6 +4,12 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Define the root URL
+$script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$root_url = ($script_dir === '/') ? '' : $script_dir;
+define('ROOT_URL', $root_url);
+define('APP_PATH', str_replace('\\', '/', __DIR__));
+
 // Include the router file
 require_once 'router.php';
 

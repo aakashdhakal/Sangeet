@@ -47,8 +47,19 @@ function route($route, $path_to_include)
         exit();
     }
     $request_url = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
-    $request_url = rtrim($request_url, '/');
-    $request_url = strtok($request_url, '?');
+
+    // Get the directory of the main script (to handle subdirectories)
+    $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+
+    // Remove the query string
+    $request_url_path = parse_url($request_url, PHP_URL_PATH);
+
+    // If the request path starts with the script directory (and it's not root), strip it
+    if ($script_dir !== '/' && strpos($request_url_path, $script_dir) === 0) {
+        $request_url_path = substr($request_url_path, strlen($script_dir));
+    }
+
+    $request_url = rtrim($request_url_path, '/');
     $route_parts = explode('/', $route);
     $request_url_parts = explode('/', $request_url);
     array_shift($route_parts);

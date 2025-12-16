@@ -4,15 +4,19 @@
 // Connect to the database
 //use environment variables to store the database credentials
 
-$servername = getenv('DB_SERVER');
-$username = getenv('DB_USERNAME');
-$password = getenv('DB_PASSWORD');
-$database = getenv('DB_NAME');
-$port = getenv('DB_PORT');
+// Enable error reporting for debugging
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$mysqli = new mysqli($servername, $username, $password, $database, $port);
-// Check connection
-if ($mysqli->connect_error) {
-    die("Connection failed: {$mysqli->connect_error}");
+try {
+    $servername = getenv('DB_SERVER') ?: 'localhost';
+    $username = getenv('DB_USERNAME') ?: 'root';
+    $password = getenv('DB_PASSWORD') ?: '';
+    $database = getenv('DB_NAME') ?: 'sangeet';
+    $port = getenv('DB_PORT') ?: 3306;
+
+    $mysqli = new mysqli($servername, $username, $password, $database, $port);
+    $mysqli->set_charset("utf8mb4");
+} catch (mysqli_sql_exception $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
 

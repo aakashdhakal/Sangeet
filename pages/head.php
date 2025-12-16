@@ -10,8 +10,9 @@ if (session_status() == PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $website_title ?></title>
-    <link rel="shortcut icon" href="/public/images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/public/CSS/style.css">
+    <meta name="base-url" content="<?php echo defined('ROOT_URL') ? ROOT_URL : ''; ?>">
+    <link rel="shortcut icon" href="<?php echo get_url('/public/images/logo.png'); ?>" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo get_url('/public/CSS/style.css'); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
@@ -25,5 +26,5 @@ if (session_status() == PHP_SESSION_NONE) {
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="" class="dynamic-css">
-    <link rel="stylesheet" href="/vendor/datepicker/datepicker.material.css">
-    <script src="/vendor/datepicker/datepicker.js"></script>
+    <link rel="stylesheet" href="<?php echo get_url('/vendor/datepicker/datepicker.material.css'); ?>">
+    <script src="<?php echo get_url('/vendor/datepicker/datepicker.js'); ?>"></script>

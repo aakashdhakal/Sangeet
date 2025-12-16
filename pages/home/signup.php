@@ -78,7 +78,7 @@
                     <div class="image-upload-area">
                         <p>Profile Picture</p>
                         <div class="custom-image-upload"
-                            style="background-image: url('/public/images/profile-pics/default.jpg');">
+                            style="background-image: url('<?php echo get_url('/public/images/profile-pics/default.jpg'); ?>');">
                             <input type="file" id="profilePic" name="profile_pic" class="image-upload" accept="image/*">
                             <label for="profilePic">Browse Files</label>
                         </div>

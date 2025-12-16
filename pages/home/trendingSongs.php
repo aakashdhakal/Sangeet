@@ -1,6 +1,6 @@
 <?php
-include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/database.php";
-include_once realpath($_SERVER["DOCUMENT_ROOT"]) . "/modules/extraFunctions.php";
+include_once APP_PATH . "/modules/database.php";
+include_once APP_PATH . "/modules/extraFunctions.php";
 $sql = 'SELECT musics.id, musics.coverImage, musics.title, musics.artist, COUNT(music_history.music_id) as plays 
         FROM music_history
         INNER JOIN musics ON music_history.music_id = musics.id
@@ -25,7 +25,7 @@ if ($result instanceof mysqli_result) {
              <div class='song-list-wrapper'>
              <p class='song-number'>#" . $i++ . "</p>
             <div class='song-list'>
-    <img src='/$cover' alt=' srcset='>
+    <img src='" . get_url($cover) . "' alt=' srcset='>
     <button class='start-play-music' data-musicId='$musicId'><iconify-icon icon='gravity-ui:play-fill'></iconify-icon></button>
     <div class='song-info'>
         <p class='music-title'>$title</p>

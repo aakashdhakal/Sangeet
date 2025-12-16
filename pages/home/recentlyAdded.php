@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/extraFunctions.php';
+require_once APP_PATH . '/modules/database.php';
+require_once APP_PATH . '/modules/extraFunctions.php';
 $sql = "SELECT * FROM musics ORDER BY id DESC LIMIT 13";
 $stmt = $mysqli->prepare($sql);
 $stmt->execute();
@@ -13,7 +13,7 @@ while ($row = $result->fetch_assoc()) {
     $musicId = $row['id'];
     echo "
                         <div class='song-card' title='$title - $artist'>
-                            <img src='$cover' alt='' srcset='' loading='lazy'>
+                            <img src='" . get_url($cover) . "' alt='' srcset='' loading='lazy'>
                             <button class='start-play-music' data-musicId='$musicId'><iconify-icon
                                     icon='gravity-ui:play-fill'></iconify-icon></button>
                             <div class='song-info'>

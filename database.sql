@@ -81,8 +81,8 @@ VALUES (
     'folk',
     282,
     NULL,
-    '/public/music/Saarangi-Sushant-K.C.mp3',
-    '/public/images/song-cover/sarangi.jpg'
+    'public/music/Saarangi-Sushant-K.C.mp3',
+    'public/images/song-cover/sarangi.jpg'
   ),
   (
     2,
@@ -91,8 +91,8 @@ VALUES (
     'pop',
     206,
     '2024-06-04',
-    '/public/music/Kya-Kardiya-sushant-kc.m4a',
-    '/public/images/song-cover/kyakardiya.jpg'
+    'public/music/Kya-Kardiya-sushant-kc.m4a',
+    'public/images/song-cover/kyakardiya.jpg'
   ),
   (
     3,
@@ -101,8 +101,8 @@ VALUES (
     'pop',
     200,
     '2024-06-04',
-    '/public/music/Blinding-Lights.mp3',
-    '/public/images/song-cover/blindinglights.jpg'
+    'public/music/Blinding-Lights.mp3',
+    'public/images/song-cover/blindinglights.jpg'
   ),
   (
     15,
@@ -111,8 +111,8 @@ VALUES (
     'pop',
     201,
     '2024-08-10',
-    '/public/music/bye-bye-bye.m4a',
-    '/public/images/song-cover/bye-bye-bye-cover.png'
+    'public/music/bye-bye-bye.m4a',
+    'public/images/song-cover/bye-bye-bye-cover.png'
   ),
   (
     16,
@@ -121,8 +121,8 @@ VALUES (
     'modern',
     341,
     '2024-08-10',
-    '/public/music/like-a-prayer.m4a',
-    '/public/images/song-cover/like-a-prayer-cover.png'
+    'public/music/like-a-prayer.m4a',
+    'public/images/song-cover/like-a-prayer-cover.png'
   ),
   (
     17,
@@ -131,8 +131,8 @@ VALUES (
     'Rock',
     261,
     '2024-08-10',
-    '/public/music/bad-liar.m4a',
-    '/public/images/song-cover/bad-liar-cover.jpg'
+    'public/music/bad-liar.m4a',
+    'public/images/song-cover/bad-liar-cover.jpg'
   ),
   (
     18,
@@ -141,8 +141,8 @@ VALUES (
     'Modern',
     149,
     '2024-08-10',
-    '/public/music/champion.m4a',
-    '/public/images/song-cover/champion-cover.webp'
+    'public/music/champion.m4a',
+    'public/images/song-cover/champion-cover.webp'
   ),
   (
     19,
@@ -151,8 +151,8 @@ VALUES (
     'pop',
     200,
     '2024-08-12',
-    '/public/music/ashes-from-deadpool-movie.m4a',
-    '/public/images/song-cover/ashes-from-deadpool-movie-cover.jpg'
+    'public/music/ashes-from-deadpool-movie.m4a',
+    'public/images/song-cover/ashes-from-deadpool-movie-cover.jpg'
   ),
   (
     21,
@@ -161,8 +161,8 @@ VALUES (
     'Rock',
     181,
     '2024-08-12',
-    '/public/music/con-calma-music.m4a',
-    '/public/images/song-cover/con-calma-cover.jpg'
+    'public/music/con-calma-music.m4a',
+    'public/images/song-cover/con-calma-cover.jpg'
   ),
   (
     22,
@@ -171,8 +171,8 @@ VALUES (
     'Modern',
     220,
     '2024-08-12',
-    '/public/music/i-dont-care-music.m4a',
-    '/public/images/song-cover/i-dont-care-cover.png'
+    'public/music/i-dont-care-music.m4a',
+    'public/images/song-cover/i-dont-care-cover.png'
   ),
   (
     55,
@@ -181,8 +181,8 @@ VALUES (
     'Rock',
     177,
     '2024-08-24',
-    '/public/music/lean-on-music.m4a',
-    '/public/images/song-cover/music.jpg'
+    'public/music/lean-on-music.m4a',
+    'public/images/song-cover/music.jpg'
   ),
   (
     56,
@@ -191,8 +191,8 @@ VALUES (
     'Indian',
     181,
     '2024-08-24',
-    '/public/music/liggi-music.m4a',
-    '/public/images/song-cover/liggi-cover.jpg'
+    'public/music/liggi-music.m4a',
+    'public/images/song-cover/liggi-cover.jpg'
   ),
   (
     57,
@@ -201,8 +201,8 @@ VALUES (
     'Folk',
     213,
     '2024-08-24',
-    '/public/music/bardali-shusant-kc.mp3',
-    '/public/images/song-cover/bardali.jpg'
+    'public/music/bardali-shusant-kc.mp3',
+    'public/images/song-cover/bardali.jpg'
   );
 -- --------------------------------------------------------
 --
@@ -334,7 +334,7 @@ VALUES (
     3,
     'Aakash\'s Playlist',
     '2024-07-29',
-    '/public/images/playlist-cover/3-Aakash\'s Playlist948726.jpeg',
+    'public/images/playlist-cover/3-Aakash\'s Playlist948726.jpeg',
     '',
     'false'
   ),
@@ -343,7 +343,7 @@ VALUES (
     3,
     'Aakash Dhakal',
     '2024-08-10',
-    '/public/images/playlist-cover/3-Aakash Dhakal987246.jpg',
+    'public/images/playlist-cover/3-Aakash Dhakal987246.jpg',
     '',
     'true'
   );
@@ -415,7 +415,7 @@ VALUES (
     '1997-01-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/sushantkc.jpg',
+    'public/images/profile-pics/sushantkc.jpg',
     '',
     1,
     1
@@ -429,7 +429,7 @@ VALUES (
     '1997-01-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/theweekend.jpg',
+    'public/images/profile-pics/theweekend.jpg',
     '',
     1,
     1
@@ -443,7 +443,7 @@ VALUES (
     '1997-01-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/profile.jpeg',
+    'public/images/profile-pics/profile.jpeg',
     '',
     0,
     1
@@ -457,7 +457,7 @@ VALUES (
     '2014-08-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/diwashmainali.jpg',
+    'public/images/profile-pics/diwashmainali.jpg',
     '',
     0,
     1
@@ -471,7 +471,7 @@ VALUES (
     '2014-08-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/sushankpandey.jpg',
+    'public/images/profile-pics/sushankpandey.jpg',
     '',
     0,
     1
@@ -485,7 +485,7 @@ VALUES (
     '1997-01-01',
     'female',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/celinedion.jpg',
+    'public/images/profile-pics/celinedion.jpg',
     '',
     1,
     1
@@ -499,7 +499,7 @@ VALUES (
     '1997-01-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/nsync.jpg',
+    'public/images/profile-pics/nsync.jpg',
     '',
     1,
     1
@@ -513,7 +513,7 @@ VALUES (
     '2014-08-01',
     'female',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/madonna.jpg',
+    'public/images/profile-pics/madonna.jpg',
     '',
     1,
     1
@@ -527,7 +527,7 @@ VALUES (
     '1997-01-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/imaginedragons.jpg',
+    'public/images/profile-pics/imaginedragons.jpg',
     '',
     1,
     1
@@ -541,7 +541,7 @@ VALUES (
     '2014-08-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/djbravo.jpg',
+    'public/images/profile-pics/djbravo.jpg',
     '',
     1,
     1
@@ -555,7 +555,7 @@ VALUES (
     '2014-08-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/ritviz.jpg',
+    'public/images/profile-pics/ritviz.jpg',
     '',
     1,
     1
@@ -569,7 +569,7 @@ VALUES (
     '1997-01-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/majorlazer.jpg',
+    'public/images/profile-pics/majorlazer.jpg',
     '',
     1,
     1
@@ -583,7 +583,7 @@ VALUES (
     '2014-08-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/edsheeran.jpg',
+    'public/images/profile-pics/edsheeran.jpg',
     '',
     1,
     1
@@ -597,7 +597,7 @@ VALUES (
     '1997-01-01',
     'male',
     'helloworld@gmail.com',
-    '/public/images/profile-pics/daddyyankee.jpg',
+    'public/images/profile-pics/daddyyankee.jpg',
     '',
     1,
     1

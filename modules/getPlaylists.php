@@ -12,6 +12,7 @@ $result = $stmt->get_result();
 $playlistList = [];
 while ($row = $result->fetch_assoc()) {
     $row['song_count'] = getPlaylistSongsCount($row['id']);
+    $row['cover'] = get_url($row['cover']);
     $playlistList[] = $row;
 }
 echo json_encode($playlistList);

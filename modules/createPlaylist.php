@@ -1,6 +1,6 @@
 <?php
-include_once 'database.php';
-include_once 'extraFunctions.php';
+include_once __DIR__ . '/database.php';
+include_once __DIR__ . '/extraFunctions.php';
 header('Content-Type: application/json');
 
 
@@ -11,9 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userId = $_SESSION['user_id'];
     $creationDate = date('Y-m-d');
 
-    // Convert to absolute path using the document root
-    $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/public/images/playlist-cover/";
-    $webPath = "/public/images/playlist-cover/"; // Path for web access
+    $webPath = "public/images/playlist-cover/"; // Path for web access
 
     if (isset($_FILES["playlistCover"]) && $_FILES["playlistCover"]["error"] == 0) {
         $playlistCover = $_FILES["playlistCover"];

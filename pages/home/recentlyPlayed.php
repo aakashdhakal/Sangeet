@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/extraFunctions.php';
+require_once APP_PATH . '/modules/database.php';
+require_once APP_PATH . '/modules/extraFunctions.php';
 $sql = "SELECT music_history.music_id, musics.*, MAX(music_history.id) as max_id
         FROM music_history 
         INNER JOIN musics ON music_history.music_id = musics.id 
@@ -31,7 +31,7 @@ if ($result->num_rows == 0) {
         $musicId = $row['music_id'];
         echo "
                         <div class='song-card' title='$title - $artist'>
-                            <img src='$cover' alt='' srcset=''>
+                            <img src='" . get_url($cover) . "' alt='' srcset=''>
                             <button class='start-play-music' data-musicId='$musicId'><iconify-icon
                                     icon='gravity-ui:play-fill'></iconify-icon></button>
                             <div class='song-info'>

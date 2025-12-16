@@ -1,6 +1,6 @@
 <div class="preloader">
     <div class="preloader__logo">
-        <img src="public/images/logo-circle.png" alt="logo">
+        <img src="<?php echo get_url('/public/images/logo-circle.png'); ?>" alt="logo">
     </div>
     <div class="loader"></div>
     <div class="random-quote">
