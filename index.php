@@ -5,9 +5,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Define the root URL
-$script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-$root_url = ($script_dir === '/') ? '' : $script_dir;
-define('ROOT_URL', $root_url);
+// We want URLs like https://domain/public/... without any extra folder (e.g. /Sangeet)
+define('ROOT_URL', '');
 define('APP_PATH', str_replace('\\', '/', __DIR__));
 
 // Include the router file

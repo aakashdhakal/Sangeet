@@ -5,16 +5,9 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once __DIR__ . '/database.php';
 
 function get_url($path) {
+    // Ensure ROOT_URL is always defined; index.php sets it to '' so URLs are domain-relative
     if (!defined('ROOT_URL')) {
-        $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-        $root_url = ($script_dir === '/') ? '' : $script_dir;
-        define('ROOT_URL', $root_url);
-    }
-    
-    // If the path already contains the root url, strip it to avoid duplication
-    // This happens if the DB entry was somehow saved with the full path previously
-    if (ROOT_URL !== '' && strpos($path, ROOT_URL) === 0) {
-       $path = substr($path, strlen(ROOT_URL));
+        define('ROOT_URL', '');
     }
 
     // Ensure path starts with /
