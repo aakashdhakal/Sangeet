@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
 
         $htmlContent = "
-<<<<<<< HEAD
       <!DOCTYPE html>
    <html lang='en'>
 
@@ -52,26 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
    </html>
 
     ";
-=======
-                        <div class='container' style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;'>
-                            <div class='header' style='text-align: center; margin-bottom: 20px;'>
-                                <h1 style='font-size: 24px; color: #333;'>OTP Verification</h1>
-                            </div>
-                            <div class='content' style='font-size: 16px; color: #555;'>
-                                <p>Dear User,</p>
-                                <p>$message</p>
-                                <div class='otp' style='font-size: 20px; font-weight: bold; color: #ff6a3a; margin: 20px 0;'>
-                                    $otpCode
-                                </div>
-                                <p>This OTP is valid for 10 minutes. Please do not share this OTP with anyone.</p>
-                            </div>
-                            <div class='footer' style='font-size: 14px; color: #777; margin-top: 20px;'>
-                                <p>If you did not request this, please ignore this email.</p>
-                                <p>Thank you,<br>SANGEET</p>
-                            </div>
-                        </div>
-                    ";
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 
         $mail = new PHPMailer(true);
         $mail->isSMTP();
@@ -103,22 +82,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
 
-<<<<<<< HEAD
         $sql = "SELECT * FROM verify_email WHERE otp = ? AND username = ?";
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("is", $otp, $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
-=======
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 
         if (mysqli_num_rows($result) > 0) {
             $result = mysqli_fetch_assoc($result);
             $time = strtotime($result['time']);
             $curtime = time();
             $interval = $curtime - $time;
-<<<<<<< HEAD
             echo $curtime . " " . $time > " " . $interval;
             if ($interval < 120) {
                 $sql = "DELETE FROM verify_email WHERE otp = ? AND username = ?";
@@ -128,16 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 echo json_encode(array("status" => 200));
             } else {
                 echo "OTP expired";
-=======
-            if ($interval < 600) {
-                $sql = "DELETE FROM verify_email WHERE otp = ? AND email = ?";
-                $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param("is", $otp, $email);
-                $stmt->execute();
-                echo json_encode(["status" => 200, "message" => "OTP verified successfully"]);
-            } else {
-                echo json_encode(["status" => 400, "error" => "OTP expired"]);
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
             }
 
         } else {

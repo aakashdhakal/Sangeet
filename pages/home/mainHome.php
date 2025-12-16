@@ -8,113 +8,34 @@ $website_title = "Sangeet- The Heartbeat of Music";
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once "pages/head.php";
 include_once "modules/extraFunctions.php";
+include_once "pages/head.php";
 ?>
-<link rel="stylesheet" href="/public/CSS/home.css">
+<link rel="stylesheet" href="<?php echo get_url('/public/CSS/home.css'); ?>">
 </head>
 
 <body>
     <?php
     include_once "pages/preloader.php";
-<<<<<<< HEAD
     ?>
-=======
-    include_once "pages/home/createPlaylist.php";
-    ?>
-    <dialog id="addToPlaylistModal">
-        <div class="max-width">
-            <?php
-            if (isset($_SESSION['user_id'])) {
-
-                $playlistList = getPlaylistList($_SESSION['user_id']);
-                // Remove var_dump($playlistList); if you don't need to debug
-                foreach ($playlistList as $playlist) {
-                    echo "<button class='playlist-btn' data-playlistid='{$playlist['id']}'>{$playlist['name']}</button>";
-                }
-            }
-            ?>
-        </div>
-    </dialog>
-
-    <div id="musicControls">
-        <div class="full-screen-show">
-            <div class="playing-on">
-                <img src=" /public/images/logo-circle.png" alt="" srcset="">
-                <p>PLAYING ON SANGEET</p>
-            </div>
-            <div id="lyricsContainer" class="lyrics-container">
-                <p class="previous"></p>
-                <p class="current"></p>
-                <p class="next"></p>
-            </div>
-        </div>
-        <div class="controls">
-            <div class="left">
-                <img src=" /public\images\song-cover\sarangi.jpg" alt="album art" class="music-cover">
-                <div class="song-info">
-                    <h3 class="music-title">Saarangi wadawdawd awd</h3>
-                    <p class="music-artist">Sushant K.C</p>
-                </div>
-            </div>
-            <div class="center">
-                <div class="music-control-btns">
-                    <button class="shuffle-btn" data-shuffle="false">
-                        <iconify-icon icon="solar:shuffle-linear"></iconify-icon> </button>
-                    <button class="prev-btn">
-                        <iconify-icon icon="mage:previous"></iconify-icon> </button>
-                    <button class="play-pause-btn">
-                        <iconify-icon icon='solar:play-bold' style="color:#ff7f11"></iconify-icon>
-                    </button>
-                    <button class="next-btn">
-                        <iconify-icon icon="mage:next"></iconify-icon> </button>
-                    <button class="repeat-btn" data-repeat="false">
-                        <iconify-icon icon="solar:repeat-bold"></iconify-icon> </button>
-                </div>
-                <div class="progress-bar">
-                    <p class="current-duration duration">00:00</p>
-                    <input type="range" name="" id="seekbar" min="0" max="100" value="0" step="0.001"
-                        class="range-slider">
-                    <p class="total-duration duration">03:00</p>
-                </div>
-            </div>
-            <div class="right">
-                <button class="like-btn" title="Add to Favourites" data-liked="0">
-                    <iconify-icon icon='fe:heart-o'></iconify-icon></button>
-                <button class="add-to-playlist-btn" title="Add to Playlist">
-                    <iconify-icon icon='tabler:playlist-add'></iconify-icon> </button>
-                <div class="volume-control">
-                    <button class="volume-btn">
-                        <iconify-icon icon="mage:volume-up"></iconify-icon> </button>
-                    <div class="volume-slider">
-                        <input type="range" name="" id="volume" min="0" max="100" value="100" step="0.001"
-                            class="range-slider">
-                    </div>
-                </div>
-                <button class="expand-current-song" title="Expand">
-                    <i class="fa-regular fa-up-right-and-down-left-from-center"></i>
-                </button>
-            </div>
-        </div>
-    </div>
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
     <nav id="sideNav">
         <ul>
             <li>
-                <button data-path="/" data-script="public/JS/home.js" data-title="Sangeet - The Heartbeat of Music"
-                    class="nav-btn page-load-btn">
+                <button data-path="<?php echo get_url('/'); ?>"
+                    data-script="<?php echo get_url('/public/JS/home.js'); ?>"
+                    data-title="Sangeet - The Heartbeat of Music" class="nav-btn page-load-btn">
                     <iconify-icon icon="fluent:home-24-filled"></iconify-icon>Home
                 </button>
             </li>
             <li>
-                <button data-path="/discover" class="nav-btn page-load-btn" data-script="/public/JS/discover.js"
-                    data-title="Discover new music">
+                <button data-path="<?php echo get_url('/discover'); ?>" class="nav-btn page-load-btn"
+                    data-script="<?php echo get_url('/public/JS/discover.js'); ?>" data-title="Discover new music">
                     <iconify-icon icon="mingcute:compass-fill"></iconify-icon>Discover
                 </button>
             </li>
             <li>
-                <button data-path="/trending" class="nav-btn page-load-btn" data-title="/Trending Music"
-                    data-script="public/JS/trending.js">
+                <button data-path="<?php echo get_url('/trending'); ?>" class="nav-btn page-load-btn"
+                    data-title="/Trending Music" data-script="<?php echo get_url('/public/JS/trending.js'); ?>">
                     <iconify-icon icon="mage:fire-b-fill"></iconify-icon>Trending
                 </button>
             </li>
@@ -129,13 +50,15 @@ include_once "modules/extraFunctions.php";
                 </div>
                 <!-- Favourites -->
                 <li>
-                    <button data-path="/favourites" data-script="/public/JS/favourites.js" class="nav-btn page-load-btn">
+                    <button data-path="<?php echo get_url('/favourites'); ?>"
+                        data-script="<?php echo get_url('/public/JS/favourites.js'); ?>" class="nav-btn page-load-btn">
                         <iconify-icon icon="si:heart-fill"></iconify-icon>Favourites
                     </button>
                 </li>
                 <!-- Recently Played -->
                 <li>
-                    <button data-path="/history" class="nav-btn page-load-btn" data-script="/public/JS/history.js">
+                    <button data-path="<?php echo get_url('/history'); ?>" class="nav-btn page-load-btn"
+                        data-script="<?php echo get_url('/public/JS/history.js'); ?>">
                         <iconify-icon icon="akar-icons:history"></iconify-icon>History
                     </button>
                 </li>
@@ -151,8 +74,8 @@ include_once "modules/extraFunctions.php";
                     $playlistList = getPlaylistList($_SESSION['user_id']);
                     foreach ($playlistList as $playlist) {
                         echo "
-                    <div class='playlist-card page-load-btn' data-playlistId = '{$playlist['id']}' data-path='/playlist/{$playlist['id']}' data-title='{$playlist['name']} - by " . getFullName($_SESSION['username']) . "' data-script='/public/JS/playlist.js'>
-                        <img src='{$playlist['cover']}' alt='' srcset=''>
+                    <div class='playlist-card page-load-btn' data-playlistId = '{$playlist['id']}' data-path='" . get_url("/playlist/{$playlist['id']}") . "' data-title='{$playlist['name']} - by " . getFullName($_SESSION['username']) . "' data-script='" . get_url('/public/JS/playlist.js') . "'>
+                        <img src='" . get_url($playlist['cover']) . "' alt='' srcset=''>
                         <div class='playlist-info'>
                             <h3 class='playlist-title'>{$playlist['name']}</h3>
                             <p class='song-count'> <span class='count'>{$playlist['song_count']}</span> songs</p>
@@ -187,7 +110,7 @@ include_once "modules/extraFunctions.php";
                 <i class="fa-solid fa-bars-staggered"></i>
             </button>
             <div class="logo-container">
-                <a href="/">
+                <a href="<?php echo get_url('/'); ?>">
                 </a>
             </div>
 
@@ -206,8 +129,9 @@ include_once "modules/extraFunctions.php";
             <?php
             if (isset($_SESSION['user_id'])) {
                 ?>
-                <button id="uploadMusicShowBtn" title="Upload Music" data-title="Upload Music" data-path="/upload"
-                    class="page-load-btn" data-script="/public/JS/uploadMusic.js">
+                <button id="uploadMusicShowBtn" title="Upload Music" data-title="Upload Music"
+                    data-path="<?php echo get_url('/upload'); ?>" class="page-load-btn"
+                    data-script="<?php echo get_url('/public/JS/uploadMusic.js'); ?>">
                     <iconify-icon icon="iconoir:music-note-plus"></iconify-icon> </button>
                 <button class="dark-mode-btn">
                     <iconify-icon icon="flowbite:moon-outline"></iconify-icon>
@@ -216,7 +140,7 @@ include_once "modules/extraFunctions.php";
                     <iconify-icon icon="ph:bell-bold"></iconify-icon>
                 </button>
                 <button class="profile-btn">
-                    <img src=" <?php echo $_SESSION["user_image"] ?>" alt="profile-pic">
+                    <img src=" <?php echo get_url($_SESSION["user_image"]); ?>" alt="profile-pic">
                 </button>
                 <div id="notificationWindow">
                     <div class="notification-header">
@@ -233,22 +157,22 @@ include_once "modules/extraFunctions.php";
                     <ul>
 
                         <li>
-                            <a href="/<?php echo $_SESSION["username"] ?>">
+                            <a href="<?php echo get_url('/' . $_SESSION["username"]); ?>">
                                 <iconify-icon icon="bi:person-circle"></iconify-icon>Profile
                             </a>
                         </li>
                         <li>
-                            <a href="/settings">
+                            <a href="<?php echo get_url('/settings'); ?>">
                                 <iconify-icon icon="bi:gear-wide-connected"></iconify-icon>Settings
                             </a>
                         </li>
                         <li>
-                            <a href="/help">
+                            <a href="<?php echo get_url('/help'); ?>">
                                 <iconify-icon icon="bi:question-circle"></iconify-icon>Help
                             </a>
                         </li>
                         <li>
-                            <a href="/logout">
+                            <a href="<?php echo get_url('/logout'); ?>">
                                 <iconify-icon icon="bi:box-arrow-right"></iconify-icon>Logout
                             </a>
                         </li>
@@ -264,86 +188,8 @@ include_once "modules/extraFunctions.php";
                     <button class="login-form-show-btn secondary-btn" id="loginFormShowBtn">Login</button>
                     <button class="signup-form-show-btn primary-btn" id="signupFormShowBtn">Sign Up</button>
                 </div>
-<<<<<<< HEAD
-                <dialog id="loginForm">
-                    <div class="max-width">
-                        <button class="close-dialog-btn" id="closeLoginForm">
-                            <iconify-icon icon="system-uicons:cross"></iconify-icon> </button>
-                        <h2>Login</h2>
-                        <form action="#" method="POST" class="login-form">
-                            <div class="form-group">
-                                <input type="text" name="username" id="username" placeholder=" " required>
-                                <label for="username">Username</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" id="password" autocomplete="off" placeholder=" "
-                                    required>
-                                <label for="password">Password</label>
-                                <button class="toggle-password-visibility" type="button">
-                                    <iconify-icon icon="fluent:eye-24-regular"></iconify-icon> </button>
-                            </div>
-                            <a href="forgot-password">Forgot Password?</a>
-                            <button type="submit" class="primary-btn">Login</button>
-                            <p>Don't have an account? <a href="#" id="signupFromLogin">Sign Up</a></p>
-                        </form>
-                    </div>
-                </dialog>
-                <dialog id="signupForm">
-                    <div class="max-width">
-                        <button class="close-dialog-btn" id="closeSignupForm">
-                            <iconify-icon icon="system-uicons:cross"></iconify-icon> </button>
-                        <h2>Sign Up</h2>
-                        <form action="#" method="POST" class="signup-form">
-                            <div class="form-group">
-                                <input type="text" name="username" id="signupUsername" placeholder=" " required>
-                                <label for="username">Username</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" id="signupEmail" placeholder=" " required>
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" id="signupPassword" autocomplete="off"
-                                    placeholder=" " required>
-                                <label for="password">Password</label>
-                                <button class="toggle-password-visibility" type="button">
-                                    <iconify-icon icon="fluent:eye-24-regular"></iconify-icon> </button>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="confirmPassword" id="confirmPassword" autocomplete="off"
-                                    placeholder=" " required>
-                                <label for="confirmPassword">Confirm Password</label>
-                                <button class="toggle-password-visibility" type="button">
-                                    <iconify-icon icon="fluent:eye-24-regular"></iconify-icon> </button>
-                            </div>
-                            <button type="submit" class="primary-btn" id="nextStep">Sign Up</button>
-                            <p>Already have an account? <a href="#" id="loginFromSignup">Login</a></p>
-                        </form>
-                        <form action="#" method="POST" class="otp-verify">
-                            <p>Enter the OTP sent to your email</p>
-                            <div class="form-group otp-group">
-                                <!-- one digit per input -->
-                                <input type="text" inputmode="numeric" pattern="[0-9]+" name="otp[]" id="otp1" maxlength="1"
-                                    required>
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp2" maxlength="1" required
-                                    autocomplete="off">
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp3" maxlength="1" required
-                                    autocomplete="off">
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp4" maxlength="1" required
-                                    autocomplete="off">
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp5" maxlength="1" required
-                                    autocomplete="off">
-                                <input type="text" inputmode="numeric" name="otp[]" id="otp6" maxlength="1" required
-                                    autocomplete="off">
-                            </div>
-                            <p class="resend-otp"></p>
-                            <button type="submit" class="primary-btn">Verify</button>
-                        </form>
-                    </div>
-                </dialog>
 
-=======
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
+
                 <?php
             }
             ?>
@@ -356,14 +202,123 @@ include_once "modules/extraFunctions.php";
         <?php include "home.php" ?>
     </main>
     <script class="dynamic-script" src=""></script>
-    <script src="/public/JS/script.js"></script>
-    <script src="/public/JS/temp-musicplayer.js"></script>
+
+    <section id="musicControls" role="region" aria-label="Music Player Controls">
+        <div class="music-info-container">
+            <img src="" alt="Current song cover" class="music-cover" />
+            <div class="music-info">
+                <h4 class="music-title" aria-live="polite"></h4>
+                <p class="music-artist" aria-live="polite"></p>
+            </div>
+            <button class="like-btn" data-liked="0" aria-label="Like song" title="Like">
+                <iconify-icon icon="fe:heart-o"></iconify-icon>
+            </button>
+        </div>
+
+        <div class="player-controls-container">
+            <div class="controls-btn-container" role="group" aria-label="Playback controls">
+                <button class="shuffle-btn" data-shuffle="false" aria-label="Shuffle" title="Shuffle">
+                    <iconify-icon icon="solar:shuffle-linear"></iconify-icon>
+                </button>
+                <button class="prev-btn" aria-label="Previous" title="Previous">
+                    <iconify-icon icon="solar:skip-previous-bold"></iconify-icon>
+                </button>
+                <button class="play-pause-btn" aria-label="Play/Pause" title="Play/Pause">
+                    <iconify-icon icon="solar:play-bold"></iconify-icon>
+                </button>
+                <button class="next-btn" aria-label="Next" title="Next">
+                    <iconify-icon icon="solar:skip-next-bold"></iconify-icon>
+                </button>
+                <button class="repeat-btn" data-repeat="false" aria-label="Repeat" title="Loop">
+                    <iconify-icon icon="solar:repeat-linear"></iconify-icon>
+                </button>
+            </div>
+            <div class="seekbar-container">
+                <label for="seekbar" class="visually-hidden">Seek</label>
+                <p class="current-duration" aria-live="polite">0:00</p>
+                <input type="range" name="seekbar" id="seekbar" value="0" min="0" max="100" aria-valuemin="0"
+                    aria-valuemax="100" aria-valuenow="0" aria-label="Seek">
+                <p class="total-duration" aria-live="polite">0:00</p>
+            </div>
+        </div>
+
+        <div class="volume-container">
+            <button class="volume-btn" aria-label="Mute/Unmute" title="Mute/Unmute">
+                <iconify-icon icon="mage:volume-up"></iconify-icon>
+            </button>
+            <label for="volume" class="visually-hidden">Volume</label>
+            <input type="range" name="volume" id="volume" value="100" min="0" max="100" aria-valuemin="0"
+                aria-valuemax="100" aria-valuenow="100" aria-label="Volume">
+            <button class="expand-current-song" aria-label="Expand Player" title="Expand Player">
+                <iconify-icon icon="solar:maximize-square-minimalistic-linear"></iconify-icon>
+            </button>
+        </div>
+        <div class="lyrics-container" aria-live="polite"></div>
+    </section>
+
+    <dialog id="addToPlaylistModal">
+        <div class="modal-header">
+            <h3>Add to Playlist</h3>
+            <button class="close-dialog-btn"><iconify-icon icon="mingcute:close-line"></iconify-icon></button>
+        </div>
+        <div class="playlist-list-container">
+            <?php
+            if (isset($_SESSION['user_id'])) {
+                $playlists = getPlaylistList($_SESSION['user_id']);
+                if (empty($playlists)) {
+                    echo "<p>No playlists found</p>";
+                }
+                foreach ($playlists as $playlist) {
+                    echo "<button class='playlist-btn' data-playlistId='{$playlist['id']}'>
+                     <img src='" . get_url($playlist['cover']) . "' >
+                     <div class='playlist-info'>
+                     <p class='playlist-name'>{$playlist['name']}</p>
+                     </div>
+                     </button>";
+                }
+            }
+            ?>
+        </div>
+    </dialog>
+
+    <dialog id="createPlaylistDialog">
+        <div class="modal-header">
+            <h3>Create Playlist</h3>
+            <button class="close-dialog-btn"><iconify-icon icon="mingcute:close-line"></iconify-icon></button>
+        </div>
+        <form id="createPlaylistForm">
+            <div class="form-group">
+                <label for="playlistName">Name</label>
+                <input type="text" name="playlistName" id="playlistName" placeholder="My Playlist" required>
+            </div>
+            <div class="form-group">
+                <label for="playlistDescription">Description</label>
+                <textarea name="playlistDescription" id="playlistDescription" placeholder="Description"
+                    required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="visibility">Visibility</label>
+                <div class="custom-select">
+                    <div class="select-display">Public</div>
+                    <div class="select-options">
+                        <div class="select-option" data-value="public">Public</div>
+                        <div class="select-option" data-value="private">Private</div>
+                    </div>
+                    <input type="hidden" name="visibility" id="visibility" value="public">
+                </div>
+            </div>
+            <div class="error-container"></div>
+            <button type="submit" class="primary-btn">Create Playlist</button>
+        </form>
+    </dialog>
+    <script src="<?php echo get_url('/public/JS/script.js'); ?>"></script>
+    <script src="<?php echo get_url('/public/JS/temp-musicplayer.js'); ?>"></script>
     <?php
     if (!isset($_SESSION['user_id'])) {
         ?>
-        <script src="/public/JS/login.js"></script>
-        <script src="/public/JS/signup.js"></script>
-        <script src="/public/JS/forgotPassword.js"></script>
+        <script src="<?php echo get_url('/public/JS/login.js'); ?>"></script>
+        <script src="<?php echo get_url('/public/JS/signup.js'); ?>"></script>
+        <script src="<?php echo get_url('/public/JS/forgotPassword.js'); ?>"></script>
         <?php
     }
     ?>

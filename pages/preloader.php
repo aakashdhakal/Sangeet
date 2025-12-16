@@ -1,6 +1,6 @@
 <div class="preloader">
     <div class="preloader__logo">
-        <img src="public/images/logo-circle.png" alt="logo">
+        <img src="<?php echo get_url('/public/images/logo-circle.png'); ?>" alt="logo">
     </div>
     <div class="loader"></div>
     <div class="random-quote">
@@ -21,11 +21,7 @@
         width: 100%;
         height: 100%;
         background-color: var(--bg-color);
-<<<<<<< HEAD
         z-index: 9999;
-=======
-        z-index: 999999999;
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
         display: flex;
         justify-content: center;
         align-items: center;

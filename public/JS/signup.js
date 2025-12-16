@@ -2,22 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	const signupFormElement = document.querySelector("#signupForm");
 	const loginFormElement = document.querySelector("#loginForm");
 
-<<<<<<< HEAD
-let username;
-document.addEventListener("submit", async (e) => {
-	if (e.target.closest(".signup-form")) {
-		e.preventDefault();
-		// Get the form data
-		let formData = new FormData(e.target);
-		let email = formData.get("email");
-		username = formData.get("username");
-		sendOtp(email, username);
-=======
 	const otpInputs = document.querySelectorAll(".otp-group input");
 	const otpPattern = /^[0-9]{1}$/;
 	let email;
-	var datepicker = new Datepicker('#datepicker');
-
+	var datepicker = new Datepicker("#datepicker");
 
 	document.addEventListener("click", async (e) => {
 		if (e.target.closest(".signup-form-show-btn")) {
@@ -30,9 +18,13 @@ document.addEventListener("submit", async (e) => {
 		if (e.target.closest("#sendOtp")) {
 			let formsContainer = getParentElement(e.target, 2);
 			setBtnStatus(e.target, "loading", "Sending OTP");
-			let username = e.target.parentElement.querySelector('input[name="username"]').value;
+			let username = e.target.parentElement.querySelector(
+				'input[name="username"]',
+			).value;
 			email = e.target.parentElement.querySelector('input[name="email"]').value;
-			let password = e.target.parentElement.querySelector('input[name="password"]').value;
+			let password = e.target.parentElement.querySelector(
+				'input[name="password"]',
+			).value;
 
 			if (!username || !email || !password) {
 				showError(formsContainer, "Please fill in all fields");
@@ -88,7 +80,6 @@ document.addEventListener("submit", async (e) => {
 				e.target.parentElement.style.display = "none";
 				e.target.parentElement.nextElementSibling.style.display = "flex";
 			}
-
 		}
 		if (e.target.closest(".resend")) {
 			setBtnStatus(e.target, "loading", "Resending OTP");
@@ -121,12 +112,11 @@ document.addEventListener("submit", async (e) => {
 				return;
 			} else {
 				let formData = new FormData(e.target);
-				formData.set('dob', dob);
+				formData.set("dob", dob);
 				if (await registerUser(formData)) {
 					setBtnStatus(btn, "normal", "Sign up");
 					loginUser(signupFormElement);
 				}
-
 			}
 		}
 	});
@@ -152,7 +142,6 @@ document.addEventListener("submit", async (e) => {
 			}
 		});
 	});
-
 
 	function combineOtp(otpInputs) {
 		return Array.from(otpInputs)
@@ -180,7 +169,6 @@ document.addEventListener("submit", async (e) => {
 		}, 1000);
 	}
 
-
 	function validateDate(date) {
 		//validate date format yyyy-mm-dd and dob is not in future
 		const pattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -188,7 +176,6 @@ document.addEventListener("submit", async (e) => {
 		const today = new Date();
 
 		return pattern.test(date) && dob <= today;
-
 	}
 
 	function validatePassword(password) {
@@ -207,17 +194,10 @@ document.addEventListener("submit", async (e) => {
 	}
 
 	function formatDate(dob) {
-		dob.split("/").reverse().map(part => part.padStart(2, '0')).join("-");
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
-	}
-	if (e.target.closest(".otp-verify")) {
-		e.preventDefault();
-		let otp = combineOtp();
-		if (await checkOtp(otp, username)) {
-			alert("OTP verified successfully");
-		} else {
-			alert("Invalid OTP");
-		}
+		dob
+			.split("/")
+			.reverse()
+			.map((part) => part.padStart(2, "0"))
+			.join("-");
 	}
 });
-

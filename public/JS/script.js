@@ -3,8 +3,10 @@ let userFullName;
 const unlikedIcon = "<iconify-icon icon='fe:heart-o'></iconify-icon>";
 const likedIcon =
 	"<iconify-icon icon='fe:heart'  style='color: #ff6a3a'></iconify-icon>";
+const baseUrl =
+	document.querySelector('meta[name="base-url"]')?.getAttribute("content") ||
+	"";
 
-<<<<<<< HEAD
 //preloader
 
 let preloader = document.querySelector(".preloader");
@@ -13,120 +15,14 @@ window.addEventListener("load", () => {
 });
 
 // Close dialog function
-=======
-// Function to load pages dynamically
-async function loadPageDynamic(url, dynamicNames) {
-	setPagePreloader(true);
-	setPageTitle(url, dynamicNames)
-	//get path after domain name
-	let path = url.split("/").pop();
-	history.pushState({ path }, null, url); // Update URL without reloading
-	await loadPage(url); // Load the page content
-	let btn = document.querySelector(`[data-path="${url}"]`);
-	if (btn) {
-		if (btn.classList.contains("nav-btn")) {
-			changeActiveBtn(btn);
-		} else {
-			changeActiveBtn(null);
-		}
-		appendScript(btn.dataset.script);
-	} else {
-		changeActiveBtn(null);
-	}
-}
-
-// Show preloader
-function setPagePreloader(display) {
-	let main = document.querySelector("main");
-	if (display) {
-		main.innerHTML = `<iconify-icon icon="svg-spinners:6-dots-rotate" width="60" height="60" style="color: #ff7f11; position:absolute; left: 50%;top:50%;"></iconify-icon>`;
-	}
-}
-
-//get title of the page
-async function setPageTitle(url, dynamicName) {
-
-	//check if music is being played
-	if (navigator.mediaSession.playbackState != "playing") {
-		let path = url.split("/")
-		let title = "Sangeet - The Heartbeat of Music";
-		if (path.includes("search")) {
-			title = "Sangeet - Search";
-		} else if (path.includes("discover")) {
-			title = "Discover Music of Your Choice";
-		} else if (path.includes("favourites")) {
-			title = "Your Favourites";
-		} else if (path.includes("history")) {
-			title = "Your Listening History";
-		} else if (path.includes("playlist")) {
-			let playlistTitle = await getPlaylistInfo(path.pop());
-			title = playlistTitle.name + " - by " + userFullName;
-		} else if (path.includes("trending")) {
-			title = "Trending Music";
-		} else if (path.includes("upload")) {
-			title = "Upload Music";
-		} else if (dynamicName) {
-			title = dynamicName;
-		}
-		document.title = title;
-	}
-}
-
-// Preloader and initial page load
-window.addEventListener("load", async () => {
-	let url = window.location.pathname;
-	let searchValue = url.split("/").filter(Boolean);
-	if (searchValue.includes("search") && searchValue.length === 3) {
-		loadPageDynamic("/");
-	} else if (searchValue.includes("search")) {
-		document.title = "Sangeet - Search";
-		let searchTerm = searchValue.pop();
-		if (searchTerm !== "search") {
-			document.querySelector("#search").value = decodeURIComponent(
-				searchTerm.replace(/\+/g, " ")
-			);
-		}
-	}
-	await loadPageDynamic(url);
-	setTimeout(() => (document.querySelector(".preloader").style.display = "none"), 1000);
-});
-
-// Handle popstate event to load pages when navigating with back/forward buttons
-window.addEventListener("popstate", async (event) => {
-	eve
-	if (event.state && event.state.path) {
-		await loadPageDynamic(window.location.href, document.title);
-	}
-});
-
-// Show error message
-function showError(form, message) {
-	let errorContainer = form.parentElement.previousElementSibling;
-	errorContainer.style.display = "flex";
-	errorContainer.querySelector(".error-text").innerText = message;
-}
-
-// Hide error messages
-function hideError() {
-	document.querySelectorAll(".error-container").forEach((container) => (container.style.display = "none"));
-}
-
-// Set button status
-function setBtnStatus(btn, status, text) {
-	btn.innerHTML = status === "loading" ? `<iconify-icon icon="eos-icons:bubble-loading"></iconify-icon>&nbsp;&nbsp;${text}` : text;
-	btn.disabled = status === "loading";
-	btn.style.opacity = status === "loading" ? 0.7 : 1;
-}
-
-// Close dialog
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 function closeDialog(dialog) {
 	let form = dialog.querySelector("form");
 	if (form) form.reset();
-	dialog.animate([{ scale: 1 }, { scale: 0.5 }], 150, "ease-in-out").onfinish = () => {
-		dialog.close();
-		hideError();
-	};
+	dialog.animate([{ scale: 1 }, { scale: 0.5 }], 150, "ease-in-out").onfinish =
+		() => {
+			dialog.close();
+			hideError();
+		};
 }
 
 // Event listeners for close buttons
@@ -156,25 +52,26 @@ document.addEventListener("change", (e) => {
 });
 
 function uploadedFileName(input, name) {
-	let previewText = input.parentElement.parentElement.querySelector(".music-upload-text");
+	let previewText =
+		input.parentElement.parentElement.querySelector(".music-upload-text");
 	if (previewText) previewText.innerHTML = name;
 }
 
 // Append script dynamically
 function appendScript(src) {
-	console.log(src)
+	console.log(src);
 	let dynamicScript = document.querySelector(".dynamic-script");
 	if (dynamicScript) {
-		console.log("script found")
+		console.log("script found");
 		if (!dynamicScript.src.includes(src)) {
-			console.log("script not same src")
+			console.log("script not same src");
 			dynamicScript.remove();
 		} else {
-			console.log("script same src")
+			console.log("script same src");
 			return;
 		}
 	} else {
-		console.log("script not found")
+		console.log("script not found");
 	}
 	let script = document.createElement("script");
 	script.src = src;
@@ -183,14 +80,12 @@ function appendScript(src) {
 	document.body.appendChild(script);
 }
 
-
 // Change active button
 function changeActiveBtn(btn) {
 	let currentActiveBtn = document.querySelector("#sideNav .active");
 	if (currentActiveBtn) currentActiveBtn.classList.remove("active");
 	if (btn) btn.parentElement.classList.add("active");
 }
-
 
 // Change theme
 async function changeTheme() {
@@ -206,18 +101,26 @@ async function changeTheme() {
 
 // Sidebar collapse/expand
 let sidebar = document.querySelector("#sideNav");
-if (localStorage.getItem("sidebar") === "collapse") sidebar.classList.add("collapse");
-document.querySelector("#collapseExpandSidebar").addEventListener("click", () => {
-	sidebar.classList.toggle("collapse");
-	localStorage.setItem("sidebar", sidebar.classList.contains("collapse") ? "collapse" : "expand");
-});
+if (localStorage.getItem("sidebar") === "collapse")
+	sidebar.classList.add("collapse");
+document
+	.querySelector("#collapseExpandSidebar")
+	.addEventListener("click", () => {
+		sidebar.classList.toggle("collapse");
+		localStorage.setItem(
+			"sidebar",
+			sidebar.classList.contains("collapse") ? "collapse" : "expand",
+		);
+	});
 
 // Dark mode toggle
 if (localStorage.getItem("darkMode") === "true") changeTheme();
 
 // Toggle profile window
 function toggleProfileWindow() {
-	document.querySelector("#profileWindow").classList.toggle("openProfileWindow");
+	document
+		.querySelector("#profileWindow")
+		.classList.toggle("openProfileWindow");
 }
 
 // Notification handling
@@ -228,7 +131,9 @@ setInterval(async () => {
 
 // Toggle notification window
 function toggleNotificationWindow() {
-	document.querySelector("#notificationWindow").classList.toggle("openNotificationWindow");
+	document
+		.querySelector("#notificationWindow")
+		.classList.toggle("openNotificationWindow");
 }
 
 // Show notifications
@@ -241,26 +146,41 @@ async function showNotifications(number) {
 		return;
 	}
 	notifications.slice(0, number).forEach((notification) => {
-		let iconifyIcon = notification.subject === "like" ? "fluent:thumb-like-16-filled" : "si:user-fill";
+		let iconifyIcon =
+			notification.subject === "like"
+				? "fluent:thumb-like-16-filled"
+				: "si:user-fill";
 		let time = formatTime(notification.time);
 		notificationBody.innerHTML += `<div class="notification-card" data-readStatus="${notification.read_status}" data-notificationId="${notification.id}"><div class="notification-info"><iconify-icon icon="${iconifyIcon}"></iconify-icon><div class="notification-details"><p class="notification-message">${notification.message}</p><p class="notification-time">${time}</p></div></div><button id="clearNotification"><iconify-icon icon="ic:outline-delete"></iconify-icon></button></div>`;
 	});
 
-	let unreadNotificationCount = document.querySelectorAll(".notification-card[data-readStatus='0']").length;
-	document.querySelector(".notification-btn").style.setProperty("--unreadNotificationMark", unreadNotificationCount > 0 ? "flex" : "none");
-	document.title = unreadNotificationCount > 0 ? `(${unreadNotificationCount}) ${title}` : title;
+	let unreadNotificationCount = document.querySelectorAll(
+		".notification-card[data-readStatus='0']",
+	).length;
+	document
+		.querySelector(".notification-btn")
+		.style.setProperty(
+			"--unreadNotificationMark",
+			unreadNotificationCount > 0 ? "flex" : "none",
+		);
+	document.title =
+		unreadNotificationCount > 0
+			? `(${unreadNotificationCount}) ${title}`
+			: title;
 }
 
 // Mark notification as read
 async function markAsRead(notificationId) {
-	if (await setNotificationReadStatus(notificationId)) showNotifications(notificationCount);
+	if (await setNotificationReadStatus(notificationId))
+		showNotifications(notificationCount);
 }
 
 // Mark all notifications as read
 async function markAllAsRead() {
 	let notifications = await fetchNotifications(-1);
 	for (let notification of notifications) {
-		if (notification.read_status === 0) await setNotificationReadStatus(notification.id);
+		if (notification.read_status === 0)
+			await setNotificationReadStatus(notification.id);
 	}
 	showNotifications(notificationCount);
 }
@@ -275,8 +195,14 @@ function formatTime(time) {
 	const diffYears = now.getFullYear() - date.getFullYear();
 	const diffMonths = diffYears * 12 + now.getMonth() - date.getMonth();
 
-	if (diffYears >= 1) return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-	if (diffMonths >= 1) return `${diffMonths} month${diffMonths > 1 ? "s" : ""} ago`;
+	if (diffYears >= 1)
+		return date.toLocaleDateString("en-US", {
+			year: "numeric",
+			month: "short",
+			day: "numeric",
+		});
+	if (diffMonths >= 1)
+		return `${diffMonths} month${diffMonths > 1 ? "s" : ""} ago`;
 	if (diffWeeks >= 1) return `${diffWeeks} week${diffWeeks > 1 ? "s" : ""} ago`;
 	if (diffDays >= 1) return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
 
@@ -288,16 +214,23 @@ function formatTime(time) {
 
 // Remove custom select dropdown
 function removeCustomSelectDropdown() {
-	document.querySelectorAll(".custom-select .select-options.show").forEach((select) => select.classList.remove("show"));
+	document
+		.querySelectorAll(".custom-select .select-options.show")
+		.forEach((select) => select.classList.remove("show"));
 }
 
 // Event listeners for various actions
 document.addEventListener("click", async (e) => {
 	if (document.getElementById("notificationWindow") !== null) {
 		if (!e.target.closest("#notificationWindow, .notification-btn")) {
-			document.querySelector("#notificationWindow").classList.remove("openNotificationWindow");
+			document
+				.querySelector("#notificationWindow")
+				.classList.remove("openNotificationWindow");
 		}
-		if (e.target.matches(".notification-card *") && !e.target.matches("#clearNotification *")) {
+		if (
+			e.target.matches(".notification-card *") &&
+			!e.target.matches("#clearNotification *")
+		) {
 			let notificationCard = e.target.closest(".notification-card");
 			if (notificationCard.dataset.readStatus === "0") {
 				markAsRead(notificationCard.dataset.notificationId);
@@ -305,25 +238,32 @@ document.addEventListener("click", async (e) => {
 			}
 		}
 		if (e.target.matches("#clearNotification *")) {
-			deleteNotification(e.target.closest(".notification-card").dataset.notificationId);
+			deleteNotification(
+				e.target.closest(".notification-card").dataset.notificationId,
+			);
 			showNotifications(notificationCount);
 		}
 		if (e.target.closest("#seeAllNotifications")) showNotifications(-1);
 		if (e.target.closest(".mark-all-as-read")) markAllAsRead();
 		if (e.target.closest(".notification-btn")) toggleNotificationWindow();
-
 	}
 	if (document.getElementById("profileWindow") !== null) {
 		if (!e.target.closest("#profileWindow, .profile-btn")) {
-			document.querySelector("#profileWindow").classList.remove("openProfileWindow");
+			document
+				.querySelector("#profileWindow")
+				.classList.remove("openProfileWindow");
 		}
 		if (e.target.closest(".profile-btn")) toggleProfileWindow();
 	}
 	if (e.target.closest(".dark-mode-btn")) changeTheme();
 	if (e.target.closest(".toggle-password-visibility")) {
 		let passwordField = e.target.parentElement.querySelector("input");
-		passwordField.type = passwordField.type === "password" ? "text" : "password";
-		e.target.innerHTML = passwordField.type === "password" ? `<iconify-icon icon="fluent:eye-24-regular"></iconify-icon>` : `<iconify-icon icon="fluent:eye-off-20-regular"></iconify-icon>`;
+		passwordField.type =
+			passwordField.type === "password" ? "text" : "password";
+		e.target.innerHTML =
+			passwordField.type === "password"
+				? `<iconify-icon icon="fluent:eye-24-regular"></iconify-icon>`
+				: `<iconify-icon icon="fluent:eye-off-20-regular"></iconify-icon>`;
 	}
 	if (e.target.closest(".custom-select")) {
 		let select = e.target.closest(".custom-select");
@@ -335,17 +275,24 @@ document.addEventListener("click", async (e) => {
 	if (e.target.closest(".select-option")) {
 		let option = e.target.closest(".select-option");
 		let value = option.dataset.value;
-		let hiddenInput = option.parentElement.parentElement.querySelector("input[type='hidden']");
-		let displayInput = option.parentElement.previousElementSibling.querySelector("input");
+		let hiddenInput = option.parentElement.parentElement.querySelector(
+			"input[type='hidden']",
+		);
+		let displayInput =
+			option.parentElement.previousElementSibling.querySelector("input");
 		if (hiddenInput) {
-			let selectDisplay = option.parentElement.parentElement.querySelector(".select-display");
+			let selectDisplay =
+				option.parentElement.parentElement.querySelector(".select-display");
 			selectDisplay.innerHTML = option.innerHTML;
 			hiddenInput.value = value;
 		} else if (displayInput) {
 			displayInput.value = value;
 		}
 	}
-	if (e.target.closest(".custom-file-upload") || e.target.closest(".custom-image-upload")) {
+	if (
+		e.target.closest(".custom-file-upload") ||
+		e.target.closest(".custom-image-upload")
+	) {
 		let input = e.target.querySelector("input[type='file']");
 		if (input) input.click();
 	}
@@ -362,19 +309,27 @@ document.addEventListener("click", async (e) => {
 		const action = likeBtn.dataset.liked === "1" ? "unlike" : "like";
 		if (await setLikeStatus(musicId, action)) {
 			likeBtn.dataset.liked = action === "like" ? "1" : "0";
-			setBtnStatus(likeBtn, "normal", action === "like" ? likedIcon : unlikedIcon);
+			setBtnStatus(
+				likeBtn,
+				"normal",
+				action === "like" ? likedIcon : unlikedIcon,
+			);
 			showAlert(
-				`Music ${action === 'like' ? 'added to' : 'removed from'} favourites`,
-				'success'
+				`Music ${action === "like" ? "added to" : "removed from"} favourites`,
+				"success",
 			);
 			if (window.location.pathname === "/favourites") {
-				setBtnStatus(likeBtn, "normal", action === "like" ? likedIcon : unlikedIcon);
+				setBtnStatus(
+					likeBtn,
+					"normal",
+					action === "like" ? likedIcon : unlikedIcon,
+				);
 				loadPageDynamic("/favourites");
 			}
 		} else {
 			likeBtn.dataset.liked = 1;
-			showAlert("Please login to add to favourites", "info")
-			setBtnStatus(likeBtn, "normal", unlikedIcon)
+			showAlert("Please login to add to favourites", "info");
+			setBtnStatus(likeBtn, "normal", unlikedIcon);
 		}
 	}
 	if (e.target.closest("#createPlaylistDialogShowBtn")) {
@@ -391,12 +346,12 @@ document.addEventListener("click", async (e) => {
 	if (e.target.closest(".delete-from-playlist-btn")) {
 		e.preventDefault();
 		let musicId = e.target.closest(".delete-from-playlist-btn").dataset.musicid;
-		let playlistId = e.target.closest(".delete-from-playlist-btn").dataset.playlistid;
+		let playlistId = e.target.closest(".delete-from-playlist-btn").dataset
+			.playlistid;
 		if (await deleteMusicFromPlaylist(musicId, playlistId)) {
 			loadPageDynamic("/playlist/" + playlistId);
 			updateSidebarPlaylistContainer();
 			showAlert("Music removed from playlist", "success");
-
 		}
 	}
 	if (e.target.closest(".delete-from-history-btn")) {
@@ -407,7 +362,6 @@ document.addEventListener("click", async (e) => {
 			showAlert("Music removed from history", "success");
 		}
 	}
-
 });
 
 document.addEventListener("input", (e) => {
@@ -427,10 +381,14 @@ document.addEventListener("input", (e) => {
 });
 
 async function updateSidebarPlaylistContainer() {
-	let sidebarPlaylistContainer = document.querySelector(".sidebar-playlist-container");
+	let sidebarPlaylistContainer = document.querySelector(
+		".sidebar-playlist-container",
+	);
 	if (sidebarPlaylistContainer) {
 		const playlists = await fetchPlaylists();
-		sidebarPlaylistContainer.innerHTML = playlists.map(playlist => `
+		sidebarPlaylistContainer.innerHTML = playlists
+			.map(
+				(playlist) => `
 			<div class='playlist-card page-load-btn' data-playlistId='${playlist.id}' data-path='/playlist/${playlist.id}' data-title='${playlist.name} - by ${userFullName}' data-script='/public/JS/playlist.js'>
 				<img src='${playlist.cover}' alt=''>
 				<div class='playlist-info'>
@@ -438,7 +396,9 @@ async function updateSidebarPlaylistContainer() {
 					<p class='song-count'><span class='count'>${playlist.song_count}</span> songs</p>
 				</div>
 			</div>
-		`).join('');
+		`,
+			)
+			.join("");
 	}
 }
 
@@ -526,8 +486,6 @@ document.addEventListener("reset", async (e) => {
 });
 document.addEventListener("submit", async (e) => {
 	if (e.target.closest("#createPlaylistForm")) {
-
-
 		// Prevent the form from submitting
 		e.preventDefault();
 		let submitBtn = e.target.querySelector("button[type=submit]");
@@ -536,7 +494,7 @@ document.addEventListener("submit", async (e) => {
 
 		if (validateCreatePlaylistForm(e.target)) {
 			// Send a POST request to the server
-			fetch("/createPlaylist", {
+			fetch(baseUrl + "/createPlaylist", {
 				method: "POST",
 				body: formData,
 			})
@@ -574,7 +532,8 @@ function validateCreatePlaylistForm(form) {
 	if (playlistName.length < 1) {
 		showError(form, "Please enter a playlist name");
 		return false;
-	} if (playlistDesc.length < 1) {
+	}
+	if (playlistDesc.length < 1) {
 		showError(form, "Please enter a playlist description");
 		return false;
 	}
@@ -585,7 +544,6 @@ function validateCreatePlaylistForm(form) {
 
 	return true;
 }
-
 
 async function loadSearchPage(searchValue) {
 	await loadPageDynamic("/search/" + encodeURIComponent(searchValue));
@@ -603,14 +561,23 @@ function getParentElement(element, levels) {
 	return parent;
 }
 
-
 //all api calls
 
 //function to change pages
 async function loadPage(path) {
 	let containerElement = document.querySelector("main");
+	// Get base url from meta tag or empty string
+	const meta = document.querySelector('meta[name="base-url"]');
+	const baseUrl = meta ? meta.getAttribute("content") : "";
+
+	// Ensure path starts with / if not present (though usually it is)
+	if (!path.startsWith("/")) path = "/" + path;
+
+	// Construct full path
+	const fullPath = baseUrl + path;
+
 	try {
-		const response = await fetch(path, {
+		const response = await fetch(fullPath, {
 			method: "POST",
 		});
 		if (!response.ok) {
@@ -627,7 +594,7 @@ async function loadPage(path) {
 //function to fetch music
 async function fetchMusic(musicId) {
 	try {
-		const response = await fetch("/fetchmusic", {
+		const response = await fetch(baseUrl + "/fetchmusic", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -645,7 +612,7 @@ async function fetchMusic(musicId) {
 //Function to like or dislike a music
 async function setLikeStatus(musicId, action = "check") {
 	try {
-		const response = await fetch("/addToFavourite", {
+		const response = await fetch(baseUrl + "/addToFavourite", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -658,7 +625,7 @@ async function setLikeStatus(musicId, action = "check") {
 		} else if (data.status === 401 || data.status === 201) {
 			return false;
 		} else {
-			showAlert("Error", data.message)
+			showAlert("Error", data.message);
 		}
 	} catch (error) {
 		console.error("Error setting like status:", error);
@@ -669,7 +636,7 @@ async function setLikeStatus(musicId, action = "check") {
 //Function to add music to playlist
 async function addToPlaylist(playlistId, musicId) {
 	try {
-		const response = await fetch("/addToPlaylist", {
+		const response = await fetch(baseUrl + "/addToPlaylist", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -696,7 +663,7 @@ async function addToPlaylist(playlistId, musicId) {
 
 async function deleteMusicFromPlaylist(musicId, playlistId) {
 	try {
-		const response = await fetch("/deleteMusicFromPlaylist", {
+		const response = await fetch(baseUrl + "/deleteMusicFromPlaylist", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -721,7 +688,7 @@ async function deleteMusicFromPlaylist(musicId, playlistId) {
 //Function to create a playlist
 async function createPlaylist(formData) {
 	try {
-		const response = await fetch("/createPlaylist", {
+		const response = await fetch(baseUrl + "/createPlaylist", {
 			method: "POST",
 			body: formData,
 		});
@@ -741,7 +708,7 @@ async function createPlaylist(formData) {
 //Function to fetch a playlist html
 async function fetchPlaylists() {
 	try {
-		const response = await fetch("/getPlaylist", {
+		const response = await fetch(baseUrl + "/getPlaylist", {
 			method: "POST",
 		});
 		const data = await response.json();
@@ -755,7 +722,7 @@ async function fetchPlaylists() {
 //Function to add to history
 async function addToHistory(musicId) {
 	try {
-		const response = await fetch("/addToHistory", {
+		const response = await fetch(baseUrl + "/addToHistory", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -777,7 +744,7 @@ async function addToHistory(musicId) {
 //Function to delete music from history
 async function deleteMusicFromHistory(musicId) {
 	try {
-		const response = await fetch("/deleteFromHistory", {
+		const response = await fetch(baseUrl + "/deleteFromHistory", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -798,7 +765,7 @@ async function deleteMusicFromHistory(musicId) {
 
 async function checkLoginStatus() {
 	try {
-		const response = await fetch("/checkLoginStatus", {
+		const response = await fetch(baseUrl + "/checkLoginStatus", {
 			method: "POST",
 		});
 		const data = await response.json();
@@ -816,7 +783,7 @@ async function checkLoginStatus() {
 
 async function fetchNotifications(numbers = 5) {
 	try {
-		const response = await fetch("/fetchNotifications", {
+		const response = await fetch(baseUrl + "/fetchNotifications", {
 			method: "POST",
 			body: `numbers=${encodeURIComponent(numbers)}`,
 		});
@@ -830,7 +797,7 @@ async function fetchNotifications(numbers = 5) {
 
 async function deleteNotification(notificationId) {
 	try {
-		const response = await fetch("/deleteNotification", {
+		const response = await fetch(baseUrl + "/deleteNotification", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -851,7 +818,7 @@ async function deleteNotification(notificationId) {
 
 async function setNotificationReadStatus(notificationId) {
 	try {
-		const response = await fetch("/setNotificationReadStatus", {
+		const response = await fetch(baseUrl + "/setNotificationReadStatus", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -872,7 +839,7 @@ async function setNotificationReadStatus(notificationId) {
 
 async function sendOtp(email, purpose = "register") {
 	try {
-		const response = await fetch("/otpConfig", {
+		const response = await fetch(baseUrl + "/otpConfig", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -893,24 +860,16 @@ async function sendOtp(email, purpose = "register") {
 	}
 }
 
-<<<<<<< HEAD
 async function checkOtp(otp, username) {
-=======
-async function checkOtp(otp, email) {
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 	try {
-		const response = await fetch("/otpConfig", {
+		const response = await fetch(baseUrl + "/otpConfig", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
 			},
 			body: `otp=${encodeURIComponent(
 				otp,
-<<<<<<< HEAD
 			)}&action=verifyOtp&username=${encodeURIComponent(username)}`,
-=======
-			)}&action=verifyOtp&email=${encodeURIComponent(email)}`,
->>>>>>> 532633b780780f32aaacb13c66bf24a0cda4baee
 		});
 		const data = await response.json();
 		if (data.status === 200) {
@@ -926,7 +885,7 @@ async function checkOtp(otp, email) {
 
 async function checkUsername(username) {
 	try {
-		const response = await fetch("/checkUsername", {
+		const response = await fetch(baseUrl + "/checkUsername", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -947,7 +906,7 @@ async function checkUsername(username) {
 
 async function checkEmail(email) {
 	try {
-		const response = await fetch("/checkEmail", {
+		const response = await fetch(baseUrl + "/checkEmail", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -973,7 +932,7 @@ async function loginUser(loginForm) {
 
 	try {
 		// Send a POST request to "/modules/loginUser.php" with the form data
-		let response = await fetch("/loginUser", {
+		let response = await fetch(baseUrl + "/loginUser", {
 			method: "POST",
 			body: data,
 		});
@@ -995,7 +954,7 @@ async function loginUser(loginForm) {
 
 async function registerUser(formData) {
 	try {
-		const response = await fetch("/registerUser", {
+		const response = await fetch(baseUrl + "/registerUser", {
 			method: "POST",
 			body: formData,
 		});
@@ -1013,7 +972,7 @@ async function registerUser(formData) {
 
 async function resetPassword(email, password) {
 	try {
-		const response = await fetch("/resetPassword", {
+		const response = await fetch(baseUrl + "/resetPassword", {
 			method: "POST",
 			body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(
 				password,
@@ -1035,18 +994,18 @@ async function fetchMusicQueue(musicId, mode, queueId) {
 	let endpoint;
 	switch (mode) {
 		case "playlist":
-			endpoint = "/getPlaylistQueue";
+			endpoint = baseUrl + "/getPlaylistQueue";
 			break;
 
 		case "trending":
-			endpoint = "/getTrendingQueue";
+			endpoint = baseUrl + "/getTrendingQueue";
 			break;
 		case "favourites":
-			endpoint = "/getFavouritesQueue";
+			endpoint = baseUrl + "/getFavouritesQueue";
 			break;
 
 		default:
-			endpoint = "/getMusicQueue";
+			endpoint = baseUrl + "/getMusicQueue";
 			break;
 	}
 
@@ -1070,7 +1029,7 @@ async function fetchMusicQueue(musicId, mode, queueId) {
 
 async function uploadMusic(formData) {
 	try {
-		const response = await fetch("/uploadMusic", {
+		const response = await fetch(baseUrl + "/uploadMusic", {
 			method: "POST",
 			body: formData,
 		});
@@ -1087,7 +1046,7 @@ async function uploadMusic(formData) {
 
 async function getPlaylistInfo(playlistId) {
 	try {
-		const response = await fetch("/getPlaylistInfo", {
+		const response = await fetch(baseUrl + "/getPlaylistInfo", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -1102,15 +1061,16 @@ async function getPlaylistInfo(playlistId) {
 	}
 }
 
-
 async function removeMusicFromPlaylist(playlistId, musicId) {
 	try {
-		const response = await fetch("/getPlaylistInfo", {
+		const response = await fetch(baseUrl + "/getPlaylistInfo", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
 			},
-			body: `playlistId=${encodeURIComponent(playlistId)}&musicId=${encodeURIComponent(musicId)}`,
+			body: `playlistId=${encodeURIComponent(
+				playlistId,
+			)}&musicId=${encodeURIComponent(musicId)}`,
 		});
 		const data = await response.json();
 		return data;

@@ -2,11 +2,26 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require_once 'database.php';
+require_once __DIR__ . '/database.php';
+
+function get_url($path) {
+    // Ensure ROOT_URL is always defined; index.php sets it to '' so URLs are domain-relative
+    if (!defined('ROOT_URL')) {
+        define('ROOT_URL', '');
+    }
+
+    // Ensure path starts with /
+    if (strpos($path, '/') !== 0) {
+        $path = '/' . $path;
+    }
+
+    return ROOT_URL . $path;
+}
+
 function isFavourites($musicId)
 {
     if (isset($_SESSION['user_id'])) {
-        require 'database.php';
+        require __DIR__ . '/database.php';
         $userId = $_SESSION['user_id'];
         $sql = "SELECT * FROM favourite_songs WHERE user_id = ? AND song_id = ?";
         $stmt = $mysqli->prepare($sql);
@@ -22,7 +37,7 @@ function isFavourites($musicId)
 
 function checkSongInPlaylist($playlistId, $musicId)
 {
-    require 'database.php';
+    require __DIR__ . '/database.php';
     $sql = "SELECT * FROM playlist_songs WHERE playlist_id = ? AND music_id = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param('ii', $playlistId, $musicId);
@@ -36,7 +51,7 @@ function checkSongInPlaylist($playlistId, $musicId)
 
 function getFullName($userName)
 {
-    require 'database.php';
+    require __DIR__ . '/database.php';
     $sql = "SELECT * FROM users WHERE username = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param('s', $userName);
@@ -63,24 +78,24 @@ function uploadFile($file, $type, $fileName)
 {
     switch ($type) {
         case 'music':
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/public/music/";
+            $uploadDir = APP_PATH . "/public/music/";
             $webPath = "public/music/"; // Path for web access
             break;
         case 'playlist_cover':
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/public/images/playlist-cover/";
-            $webPath = "/public/images/playlist-cover/"; // Path for web access
+            $uploadDir = APP_PATH . "/public/images/playlist-cover/";
+            $webPath = "public/images/playlist-cover/"; // Path for web access
             break;
         case 'song_cover':
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/public/images/song-cover/";
-            $webPath = "/public/images/song-cover/"; // Path for web access
+            $uploadDir = APP_PATH . "/public/images/song-cover/";
+            $webPath = "public/images/song-cover/"; // Path for web access
             break;
         case 'profile_pic':
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/public/images/song-cover/";
-            $webPath = "/public/images/song-cover/"; // Path for web access
+            $uploadDir = APP_PATH . "/public/images/song-cover/";
+            $webPath = "public/images/song-cover/"; // Path for web access
             break;
         case 'song_lyrics':
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/public/lyrics/";
-            $webPath = "/public/lyrics"; // Path for web access
+            $uploadDir = APP_PATH . "/public/lyrics/";
+            $webPath = "public/lyrics/"; // Path for web access
             break;
         default:
             echo "Invalid file type.";
@@ -100,7 +115,7 @@ function uploadFile($file, $type, $fileName)
 
 function getGenreList()
 {
-    require 'database.php';
+    require __DIR__ . '/database.php';
     $sql = "SELECT genre FROM musics GROUP BY genre";
     $result = $mysqli->query($sql);
     $genreList = array();
@@ -229,7 +244,7 @@ function getLanguageList()
 
 function getPlaylistSongsCount($playlistId)
 {
-    require 'database.php';
+    require __DIR__ . '/database.php';
     $sql = "SELECT * FROM playlist_songs WHERE playlist_id = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param('i', $playlistId);
@@ -240,7 +255,7 @@ function getPlaylistSongsCount($playlistId)
 
 function getPlaylistList($userId)
 {
-    require 'database.php';
+    require __DIR__ . '/database.php';
     $sql = "SELECT * FROM playlists WHERE user_id = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param('i', $userId);
@@ -276,7 +291,7 @@ function formatTime($time)
 
 function incrementPlays($musicId)
 {
-    require 'database.php';
+    require __DIR__ . '/database.php';
     $sql = "UPDATE musics SET plays = plays + 1 WHERE id = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param('i', $musicId);

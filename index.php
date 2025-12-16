@@ -4,11 +4,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Define the root URL
+// We want URLs like https://domain/public/... without any extra folder (e.g. /Sangeet)
+define('ROOT_URL', '');
+define('APP_PATH', str_replace('\\', '/', __DIR__));
+
 // Include the router file
 require_once 'router.php';
 
-//load .env file to $ENV variable
-$_ENV = parse_ini_file('.env');
 
 
 // Define GET routes
