@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Select DOM elements
 const playPauseBtn = document.querySelector(".play-pause-btn");
 const musicControls = document.querySelector("#musicControls");
@@ -16,7 +17,6 @@ const playIcon =
 	"<iconify-icon icon='solar:play-bold' style='color:#ff7f11'></iconify-icon>";
 const pauseIcon =
 	"<iconify-icon icon='solar:pause-bold' style='color:#ff7f11'></iconify-icon>";
-
 
 let isPlaying = false;
 let music = new Audio();
@@ -75,7 +75,9 @@ function displayLyric(lyrics, time) {
 		previousLyric = lyrics[lyricIndex - 1];
 
 		lyricContainer.innerHTML = `
-            <p class="lyric previous">${previousLyric ? previousLyric.text : ""}</p>
+            <p class="lyric previous">${
+							previousLyric ? previousLyric.text : ""
+						}</p>
             <p class="lyric current">${currentLyric.text}</p>
             <p class="lyric next">${nextLyric ? nextLyric.text : ""}</p>
         `;
@@ -83,8 +85,6 @@ function displayLyric(lyrics, time) {
 		lyricContainer.innerHTML = "";
 	}
 }
-
-
 
 // Check if the given music ID is already loaded
 function isMusicLoaded(id) {
@@ -107,10 +107,10 @@ async function loadMusic(id) {
 	await addToHistory(musicData.id);
 	addToPrevMusic(musicData.id);
 	if (await setLikeStatus(musicData.id)) {
-		likeBtn.dataset.liked = 1
+		likeBtn.dataset.liked = 1;
 		setBtnStatus(likeBtn, "normal", likedIcon);
 	} else {
-		likeBtn.dataset.liked = 0
+		likeBtn.dataset.liked = 0;
 		setBtnStatus(likeBtn, "normal", unlikedIcon);
 	}
 
@@ -118,7 +118,6 @@ async function loadMusic(id) {
 	currentLyric = nextLyric = previousLyric = [];
 	const lrc = await fetch(musicData.lyricsPath).then((res) => res.text());
 	lyrics = parseLyric(lrc);
-
 }
 
 // Format the duration of the music in minutes and seconds
@@ -165,7 +164,7 @@ async function playMusic() {
 // Function to pause the music
 function pauseMusic() {
 	navigator.mediaSession.playbackState = "paused";
-	setPageTitle(window.location.href,);
+	setPageTitle(window.location.href);
 	music.pause();
 	isPlaying = false;
 	playPauseBtn.innerHTML = playIcon;
@@ -370,8 +369,6 @@ async function displayPlaylists() {
 	});
 }
 
-
-
 // Event listener for document clicks
 document.addEventListener("click", async (e) => {
 	const startPlayBtn = e.target.closest(".start-play-music");
@@ -384,9 +381,9 @@ document.addEventListener("click", async (e) => {
 			await loadMusic(musicId);
 			let playlistId = startPlayBtn.dataset.playlistid;
 			if (playlistId) {
-				nextMusicQueue = (await fetchMusicQueue(musicId, "playlist", playlistId)).map(
-					(music) => music.music_id,
-				);
+				nextMusicQueue = (
+					await fetchMusicQueue(musicId, "playlist", playlistId)
+				).map((music) => music.music_id);
 			} else {
 				nextMusicQueue = (await fetchMusicQueue(musicId)).map(
 					(music) => music.id,
@@ -427,17 +424,25 @@ document.addEventListener("click", (e) => {
 	if (e.target.closest(".add-to-playlist-btn")) {
 		//show playlists just below the btn
 		let addToPlaylistDialog = document.querySelector("#addToPlaylistModal");
-		let playListBtns = document.querySelectorAll("#addToPlaylistModal .playlist-btn");
+		let playListBtns = document.querySelectorAll(
+			"#addToPlaylistModal .playlist-btn",
+		);
 		playListBtns.forEach((btn) => {
-			btn.dataset.musicid = e.target.closest(".add-to-playlist-btn").dataset.musicid;
-		})
-		addToPlaylistDialog.show()
-		addToPlaylistDialog.style.top = `${getElementPosition(e.target).top + 30}px`;
-		addToPlaylistDialog.style.left = `${getElementPosition(e.target).left - 170}px`;
+			btn.dataset.musicid = e.target.closest(
+				".add-to-playlist-btn",
+			).dataset.musicid;
+		});
+		addToPlaylistDialog.show();
+		addToPlaylistDialog.style.top = `${
+			getElementPosition(e.target).top + 30
+		}px`;
+		addToPlaylistDialog.style.left = `${
+			getElementPosition(e.target).left - 170
+		}px`;
 	} else if (document.querySelector("#addToPlaylistModal").open) {
 		closeDialog(document.querySelector("#addToPlaylistModal"));
 	}
-})
+});
 
 function getElementPosition(element) {
 	const rect = element.getBoundingClientRect();
@@ -445,6 +450,6 @@ function getElementPosition(element) {
 		top: rect.top + window.scrollY,
 		left: rect.left + window.scrollX,
 		right: rect.right + window.scrollX,
-		bottom: rect.bottom + window.scrollY
+		bottom: rect.bottom + window.scrollY,
 	};
 }
