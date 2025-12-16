@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Select DOM elements
 const playPauseBtn = document.querySelector(".play-pause-btn");
 const musicControls = document.querySelector("#musicControls");
